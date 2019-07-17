@@ -22,10 +22,10 @@ int main(void){
 	    token=strtok(NULL,",");
 	}
 	for(i=1;i<=n;i++){
-	    dp[i][0]=max(dp[i-1][2]+a[i],dp[i-1][2]+a[i]);
+	    dp[i][0]=max(dp[i-1][2],dp[i-1][2])+a[i];
 	    dp[i][1]=dp[i-1][1]+a[i];
 	    if(i>=2){
-	        dp[i][0]=max(dp[i][0],max(dp[i-2][0]+2*a[i],dp[i-2][2]+2*a[i]));
+	        dp[i][0]=max(dp[i][0],max(dp[i-2][0],dp[i-2][2])+2*a[i]);
 	        dp[i][1]=max(dp[i][1],dp[i-2][1]+2*a[i]);
 	    }
 	    if(i>=3)
