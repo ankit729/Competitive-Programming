@@ -1,0 +1,14 @@
+ll binomialCoeff(ll n,ll k){
+	ll res=1;
+	if(k>n-k)
+		k=n-k;
+	for(ll i=0;i<k;i++){
+		res*=(n-i);
+		res/=(i+1);
+	}
+	return res;
+}
+ll catalan(ll n){
+	ll c=binomialCoeff(2*n,n);
+	return c/(n+1);
+}
