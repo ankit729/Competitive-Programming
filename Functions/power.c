@@ -1,3 +1,4 @@
+#define MOD 1e9+7
 int power(ll x,ll y){
     ll res=1;
     while(y>0){
