@@ -1,11 +1,9 @@
-int modInverse(ll a,ll m)
-{
+int modInverse(ll a,ll m){
     ll m0=m;
     ll y=0,x=1;
     if(m==1)
       return 0;
-    while(a>1)
-    {
+    while(a>1){
         ll q=a/m;
         ll t=m;
         m=a%m,a=t;
