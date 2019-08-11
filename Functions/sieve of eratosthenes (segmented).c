@@ -45,7 +45,8 @@ void segmentedSieve(ll n){
     }
 }
 int main(void){
-    ll n=1000000000;
-    segmentedSieve(n);
+    ll n;
+    scanf("%lld",&n);
+    segmentedSieve(n+1);
     return 0;
 }
