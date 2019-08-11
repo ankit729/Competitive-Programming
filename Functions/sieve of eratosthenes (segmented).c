@@ -28,7 +28,7 @@ void segmentedSieve(ll n){
     while(low<n){
         if(high>n)
            high=n;
-        bool mark[limit+1];
+        bool mark[high-low+1];
         memset(mark,true,sizeof(mark));
         for(ll i=0;i<psize;i++){
             ll loLim=floor(low/prime[i])*prime[i];
