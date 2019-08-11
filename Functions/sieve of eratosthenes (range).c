@@ -50,6 +50,5 @@ int main(void){
     scanf("%lld %lld",&low,&high);
     sieve_of_eratosthenes_range(low,high+1);
     //primes are stored in prime[psize,psize2-1]
-    printf("%lld\t",psize2-psize);
     return 0;
 }
