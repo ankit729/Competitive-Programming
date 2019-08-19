@@ -9,6 +9,5 @@ ll binomialCoeff(ll n,ll k){
 	return res;
 }
 ll catalan(ll n){
-	ll c=binomialCoeff(2*n,n);
-	return c/(n+1);
+	return binomialCoeff(2*n,n)/(n+1);
 }
