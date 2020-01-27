@@ -27,17 +27,14 @@ int jump_game_2(int n,int a[n]){
     }
     return -1;
 }
-int activate_fountain(){
-    int n,i;
-	scanf("%d",&n);
+int activate_fountain(int n,int f[n]){
+    int i;
 	int a[n+1];
 	for(i=0;i<=n;i++)
 	    a[i]=0;
 	for(i=0;i<n;i++){
-	    int x;
-	    scanf("%d",&x);
-	    int y=max(i-x,0);
-	    int z=min(i+x,n-1);
+	    int y=max(i-f[i],0);
+	    int z=min(i+f[i],n-1);
 	    a[y]=max(a[y],z-y);
 	}
 	for(i=0;i<n;i++)
@@ -45,6 +42,11 @@ int activate_fountain(){
     return jump_game_2(n+1,a);
 }
 int main(void){
-	printf("%d",activate_fountain());
+    int n;
+    scanf("%d",&n);
+    int a[n];
+    for(int i=0;i<n;i++)
+        scanf("%d",&a[i]);
+	printf("%d",activate_fountain(n,a));
 	return 0;
 }
