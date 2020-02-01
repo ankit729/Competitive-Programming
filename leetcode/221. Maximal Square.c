@@ -20,17 +20,19 @@ int min(int a,int b){
 int maximalSquare(char** M, int r, int* c){
     if(r==0 || c[0]==0)
         return 0;
-    int a=0;
-    int m[r][c[0]];
+    int ans=0,prev=0,dp[c[0]+1];
+    for(int j=0;j<=c[0];j++)
+        dp[j]=0;
     for(int i=0;i<r;i++)
-        for(int j=0;j<c[i];j++)
-            m[i][j]=M[i][j]-'0';
-    for(int i=1;i<r;i++)
-        for(int j=1;j<c[i];j++)
-            if(m[i][j])
-                m[i][j]=1+min(m[i-1][j],min(m[i-1][j-1],m[i][j-1]));
-    for(int i=0;i<r;i++)
-        for(int j=0;j<c[i];j++)
-            a=max(a,m[i][j]);
-    return a*a;
+        for(int j=0;j<c[i];j++){
+            int temp=dp[j+1];
+            if(M[i][j]-'0'){
+                dp[j+1]=1+min(prev,min(dp[j+1],dp[j]));
+                ans=max(ans,dp[j+1]);
+            }
+            else
+                dp[j+1]=0;
+            prev=temp;
+        }
+    return ans*ans;
 }
