@@ -38,12 +38,12 @@ int setbits(int a){
     }
     return ans;
 }
-int solve(int alpha[],bool is[],int r,int index,int a){
+int maxLength_solve(int alpha[],bool is[],int r,int index,int a){
     if(index>=r)
-        return setbits(a);
-    int ans=solve(alpha,is,r,index+1,a);
+        return a;
+    int ans=maxLength_solve(alpha,is,r,index+1,a);
     if(is[index] && (a&alpha[index])==0)
-        ans=max(ans,solve(alpha,is,r,index+1,a|alpha[index]));
+        ans=max(ans,maxLength_solve(alpha,is,r,index+1,a|alpha[index]));
     return ans;
 }
 int maxLength(char** arr,int r){
@@ -61,5 +61,5 @@ int maxLength(char** arr,int r){
             }
         }
     }
-    return solve(alpha,is,r,0,0);
+    return setbits(maxLength_solve(alpha,is,r,0,0));
 }
