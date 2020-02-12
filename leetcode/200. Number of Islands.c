@@ -19,7 +19,7 @@
 
 // Output: 3
 
-void dfs(char** grid,int gr,int* gc,bool seen[gr][gc[0]],int dir[4][2],int i,int j){
+void numIslands_dfs(char** grid,int gr,int* gc,bool seen[gr][gc[0]],int dir[4][2],int i,int j){
     if(i<0||i==gr||j<0||j==gc[0])
         return;
     if(grid[i][j]=='0')
@@ -28,7 +28,7 @@ void dfs(char** grid,int gr,int* gc,bool seen[gr][gc[0]],int dir[4][2],int i,int
         return;
     seen[i][j]=true;
     for(int k=0;k<4;k++)
-        dfs(grid,gr,gc,seen,dir,i+dir[k][0],j+dir[k][1]);
+        numIslands_dfs(grid,gr,gc,seen,dir,i+dir[k][0],j+dir[k][1]);
 }
 int numIslands(char** grid,int gr,int* gc){
     if(gr==0||gc[0]==0)
@@ -40,7 +40,7 @@ int numIslands(char** grid,int gr,int* gc){
     for(int i=0;i<gr;i++)
         for(int j=0;j<gc[i];j++)
             if(grid[i][j]=='1' && !seen[i][j]){
-                dfs(grid,gr,gc,seen,dir,i,j);
+                numIslands_dfs(grid,gr,gc,seen,dir,i,j);
                 ans++;
             }
     return ans;
