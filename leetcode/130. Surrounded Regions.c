@@ -18,14 +18,14 @@
 
 // Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
 
-void dfs(char** board,int br,int* bc,int dir[4][2],int i,int j){
+void solve_dfs(char** board,int br,int* bc,int dir[4][2],int i,int j){
     if(i<0||i>=br||j<0||j>=bc[0])
         return;
     if(board[i][j]!='O')
         return;
     board[i][j]='?';
     for(int k=0;k<4;k++)
-        dfs(board,br,bc,dir,i+dir[k][0],j+dir[k][1]);
+        solve_dfs(board,br,bc,dir,i+dir[k][0],j+dir[k][1]);
 }
 void solve(char** board,int br,int* bc){
     if(br<=2||bc[0]<=2)
@@ -34,11 +34,11 @@ void solve(char** board,int br,int* bc){
     for(int i=0;i<br;i+=br-1)
         for(int j=0;j<bc[0];j++)
             if(board[i][j]=='O')
-                dfs(board,br,bc,dir,i,j);
+                solve_dfs(board,br,bc,dir,i,j);
     for(int i=0;i<br;i++)
         for(int j=0;j<bc[0];j+=bc[0]-1)
             if(board[i][j]=='O')
-                dfs(board,br,bc,dir,i,j);
+                solve_dfs(board,br,bc,dir,i,j);
     for(int i=0;i<br;i++)
         for(int j=0;j<bc[i];j++){
             if(board[i][j]=='?')
