@@ -24,18 +24,9 @@
  * };
  */
 
-bool hasPathSum_Util(struct TreeNode* root,int sum){
-    sum-=root->val;
-    if(root->left==NULL && root->right==NULL && sum==0)
-        return true;
-    if(root->left!=NULL && hasPathSum_Util(root->left,sum))
-        return true;
-    if(root->right!=NULL && hasPathSum_Util(root->right,sum))
-        return true;
-    return false;
-}
 bool hasPathSum(struct TreeNode* root,int sum){
     if(root==NULL)
         return false;
-    return hasPathSum_Util(root,sum);
+    sum-=root->val;
+    return (root->left==NULL&&root->right==NULL&&sum==0)||hasPathSum(root->left,sum)||hasPathSum(root->right,sum);
 }
