@@ -1,4 +1,4 @@
-int modInverse(ll a,ll m){
+ll modInverse(ll a,ll m){
     ll m0=m;
     ll y=0,x=1;
     if(m==1)
