@@ -13,17 +13,17 @@
 // Input: [7,8,9,11,12]
 // Output: 1
 
-void swap(int* nums,int i,int j){
-    int t=nums[i];
-    nums[i]=nums[j];
-    nums[j]=t;
+void swap(int* a,int* b){
+    int t=*a;
+    *a=*b;
+    *b=t;
 }
 int firstMissingPositive(int* nums,int nr){
     for(int i=0;i<nr;i++)
         while(!(nums[i]==i+1 || nums[i]<=0 || nums[i]>nr)){
             if(nums[i]==nums[nums[i]-1])
                 break;
-            swap(nums,i,nums[i]-1);
+            swap(&nums[i],&nums[nums[i]-1]);
         }
     int i=0;
     while(i<nr && nums[i]==i+1)
