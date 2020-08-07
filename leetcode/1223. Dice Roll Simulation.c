@@ -28,7 +28,7 @@
 // 1 <= rollMax[i] <= 15
 
 int MOD=1000000007;
-int solve(int n,int prevRoll,int prevCount,int* rollMax,int rr,int dp[n][7][16]){
+int dieSimulator_solve(int n,int prevRoll,int prevCount,int* rollMax,int rr,int dp[n][7][16]){
     if(n==0)
         return 1;
     if(dp[n-1][prevRoll][prevCount]>-1)
@@ -36,11 +36,11 @@ int solve(int n,int prevRoll,int prevCount,int* rollMax,int rr,int dp[n][7][16])
     int ans=0;
     for(int i=1;i<=6;i++)
         if(i!=prevRoll || rollMax[i-1]>prevCount)
-            ans=(ans+solve(n-1,i,(i==prevRoll)?prevCount+1:1,rollMax,rr,dp))%MOD;
+            ans=(ans+dieSimulator_solve(n-1,i,(i==prevRoll)?prevCount+1:1,rollMax,rr,dp))%MOD;
     return dp[n-1][prevRoll][prevCount]=ans;
 }
 int dieSimulator(int n,int* rollMax,int rr){
     int dp[n][7][16];
     memset(dp,-1,sizeof(dp));
-    return solve(n,0,0,rollMax,rr,dp);
+    return dieSimulator_solve(n,0,0,rollMax,rr,dp);
 }
