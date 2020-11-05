@@ -44,7 +44,7 @@ class Solution {
 public:
     int maxDepth(string s) {
         int max=0,count=0;
-        for(int x:s){
+        for(char x:s){
             if(x=='('){
                 count++;
                 if(max<count)
