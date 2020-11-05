@@ -4,12 +4,11 @@
 
 // You may assume all the characters consist of printable ascii characters.
 
-void reverseString(char* s, int n){
-    int l=0,h=n-1;
-    while(l<h){
-        char c=s[l];
-        s[l++]=s[h];
-        s[h--]=c;
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        int n=s.size();
+        for(int i=(n>>1)-1;i>=0;i--)
+            swap(s[i],s[n-i-1]);
     }
-    return s;
-}
+};
