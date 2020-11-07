@@ -34,6 +34,8 @@ public:
     void rotate(vector<int>& nums, int k) {
         int n=nums.size();
         k%=n;
+        if(k==0)
+            return;
         int count=0;
         for(int i=0;count<n;i++){
             int curr=i;
