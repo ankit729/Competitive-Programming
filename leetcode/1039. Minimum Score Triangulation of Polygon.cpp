@@ -30,27 +30,26 @@
 // 3 <= A.length <= 50
 // 1 <= A[i] <= 100
 
-int min(int a,int b){
-    return (a<b)?a:b;
-}
-int minScoreTriangulation_Util(int* A,int r,int l,int h,int dp[r][r]){
-    if(dp[l][h]!=INT_MAX)
-        return dp[l][h];
-    if(h-l+1==3){
-        dp[l][h]=A[l]*A[l+1]*A[l+2];
-        return dp[l][h];
+class Solution {
+public:
+    int dp[50][50];
+    int minScoreTriangulation(vector<int>& A) {
+        int n=A.size();
+        for(int i=0;i<n;i++)
+            for(int j=0;j<n;j++)
+                dp[i][j]=(j-i+1==2)?0:INT_MAX;
+        return solve(A,0,n-1);
     }
-    int a=INT_MAX;
-    int mul= A[l]*A[h];
-    for(int i=l+1;i<h;i++)
-        a=min(a, A[i]*mul + minScoreTriangulation_Util(A,r,l,i,dp) + minScoreTriangulation_Util(A,r,i,h,dp));
-    dp[l][h]=a;
-    return a;
-}
-int minScoreTriangulation(int* A,int r){
-    int dp[r][r];
-    for(int i=0;i<r;i++)
-        for(int j=i+1;j<r;j++)
-            dp[i][j]=(j-i+1==2)?0:INT_MAX;
-    return minScoreTriangulation_Util(A,r,0,r-1,dp);
-}
+private:
+    int solve(vector<int>& A, int l, int r){
+        if(dp[l][r]!=INT_MAX)
+            return dp[l][r];
+        if(r-l+1==3)
+            return dp[l][r]=A[l]*A[l+1]*A[l+2];
+        int ans=INT_MAX;
+        int mul=A[l]*A[r];
+        for(int i=l+1;i<r;i++)
+            ans=min(ans, A[i]*mul + solve(A,l,i) + solve(A,i,r));
+        return dp[l][r]=ans;
+    }
+};
