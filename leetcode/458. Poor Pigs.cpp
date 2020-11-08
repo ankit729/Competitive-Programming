@@ -16,6 +16,9 @@
 // After a pig has instantly finished drinking buckets, there has to be a cool down time of m minutes. During this time, only observation is allowed and no feedings at all.
 // Any given bucket can be sampled an infinite number of times (by an unlimited number of pigs).
 
-int poorPigs(int buckets, int minutesToDie, int minutesToTest){
-    return ceil(log(buckets)/log(floor(1+minutesToTest/minutesToDie)));
-}
+class Solution {
+public:
+    int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
+        return ceil(log(buckets)/log(floor(1+minutesToTest/minutesToDie)));
+    }
+};
