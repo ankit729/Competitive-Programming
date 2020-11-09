@@ -29,7 +29,7 @@
 
 class Solution {
 public:
-    int mctFromLeafValues(vector<int>& arr) {
+    int mctFromLeafValues(vector<int>& arr) {// function deletes the vector
         int n=arr.size();
         // for large values of a[i], change mi type to long
         int mi=INT_MAX;
