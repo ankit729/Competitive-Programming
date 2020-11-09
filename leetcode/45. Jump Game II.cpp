@@ -31,7 +31,7 @@ public:
         while(end<n-1){
             int stop=end;
             for(int i=start;i<=stop;++i){
-                if(i+nums[i]>=n)
+                if(i+nums[i]>=n-1)
                     return jump+1;
                 end=max(end,i+nums[i]);
             }
