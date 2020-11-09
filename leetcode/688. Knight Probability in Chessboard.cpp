@@ -29,25 +29,27 @@
 // K will be between 0 and 100.
 // The knight always initially starts on the board.
 
-double knightProbability(int N,int K,int sr,int sc){
-    double dp[N][N][K+1];
-    memset(dp,0,sizeof(dp));
-    dp[sr][sc][0]=1;
-    int dirr[8]={-2,-2,-1,1,2,2,1,-1};
-    int dirc[8]={-1,1,2,2,1,-1,-2,-2};
-    for(int k=1;k<=K;k++)
-        for(int r=0;r<N;r++)
-            for(int c=0;c<N;c++)
-                if(dp[r][c][k-1]>0)
-                    for(int d=0;d<8;d++){
-                        int nr=r+dirr[d];
-                        int nc=c+dirc[d];
-                        if(nr>=0 && nr<N && nc>=0 && nc<N)
-                            dp[nr][nc][k]+=dp[r][c][k-1]/8;
-                    }
-    double ans=0;
-    for(int i=0;i<N;i++)
-        for(int j=0;j<N;j++)
-            ans+=dp[i][j][K];
-    return ans;
-}
+class Solution {
+public:
+    double knightProbability(int N, int K, int sr, int sc) {
+        double dp[N][N][K+1];
+        memset(dp,0,sizeof(dp));
+        dp[sr][sc][0]=1;
+        int dir[8][2]={{-2,-1},{-2,1},{-1,2},{1,2},{2,1},{2,-1},{1,-2},{-1,-2}};
+        for(int k=1;k<=K;k++)
+            for(int r=0;r<N;r++)
+                for(int c=0;c<N;c++)
+                    if(dp[r][c][k-1]>0)
+                        for(int d=0;d<8;d++){
+                            int nr=r+dir[d][0];
+                            int nc=c+dir[d][1];
+                            if(nr>=0 && nr<N && nc>=0 && nc<N)
+                                dp[nr][nc][k]+=dp[r][c][k-1]/8;
+                        }
+        double ans=0;
+        for(int i=0;i<N;i++)
+            for(int j=0;j<N;j++)
+                ans+=dp[i][j][K];
+        return ans;
+    }
+};
