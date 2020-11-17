@@ -19,21 +19,17 @@
 // 1 <= p <= 1000
 // 0 <= q <= p
 
-int gcd(int a,int b){
-    return (b==0)?a:gcd(b,a%b);
-}
-int lcm(int a,int b){
-    return a*b/gcd(a,b);
-}
-int mirrorReflection(int p,int q){
-    int l=lcm(p,q);
-    int np=l/p;
-    int nq=l/q;
-    if(np&1){
-        if(nq&1)
-            return 1;
-        return 2;
-    }
-    else
+class Solution {
+public:
+    int mirrorReflection(int p, int q) {
+        int l=lcm(p,q);
+        int np=l/p;
+        int nq=l/q;
+        if(np&1){
+            if(nq&1)
+                return 1;
+            return 2;
+        }
         return 0;
-}
+    }
+};
