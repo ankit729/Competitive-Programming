@@ -15,17 +15,20 @@
 // Your runtime complexity should be less than O(n2).
 // There is only one duplicate number in the array, but it could be repeated more than once.
 
-int findDuplicate(int* nums,int nr){
-    int tortoise=nums[0],hare=nums[0];
-    do{
-        tortoise=nums[tortoise];
-        hare=nums[nums[hare]];
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int tortoise=nums[0];
+        int hare=nums[0];
+        do{
+            tortoise=nums[tortoise];
+            hare=nums[nums[hare]];
+        }while(tortoise!=hare);
+        tortoise=nums[0];
+        while(tortoise!=hare){
+            tortoise=nums[tortoise];
+            hare=nums[hare];
+        }
+        return hare;
     }
-    while(tortoise!=hare);
-    tortoise=nums[0];
-    while(tortoise!=hare){
-        tortoise=nums[tortoise];
-        hare=nums[hare];
-    }
-    return hare;
-}
+};
