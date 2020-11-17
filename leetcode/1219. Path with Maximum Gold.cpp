@@ -37,27 +37,31 @@
 // 0 <= grid[i][j] <= 100
 // There are at most 25 cells containing gold.
 
-int max(int a,int b){
-    return (a>b)?a:b;
-}
-int getMaximumGold_Util(int** grid,int gr,int* gc,int i,int j,int sum){
-    if(i<0||i>=gr||j<0||j>=gc[0])
-        return sum;
-    if(grid[i][j]==0)
-        return sum;
-    sum+=grid[i][j];
-    int temp=grid[i][j];
-    grid[i][j]=0;
-    int ans=0;
-    ans=max(max(getMaximumGold_Util(grid,gr,gc,i-1,j,sum),getMaximumGold_Util(grid,gr,gc,i,j+1,sum)),max(getMaximumGold_Util(grid,gr,gc,i+1,j,sum),getMaximumGold_Util(grid,gr,gc,i,j-1,sum)));
-    grid[i][j]=temp;
-    return ans;
-}
-int getMaximumGold(int** grid,int gr,int* gc){
-    int ans=0;
-    for(int i=0;i<gr;i++)
-        for(int j=0;j<gc[i];j++)
-            if(grid[i][j]>0)
-                ans=max(ans,getMaximumGold_Util(grid,gr,gc,i,j,0));
-    return ans;
-}
+class Solution {
+public:
+    int getMaximumGold(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+        int ans=0;
+        for(auto i=0;i<m;i++)
+            for(auto j=0;j<n;j++)
+                if(grid[i][j]>0)
+                    ans=max(ans,solve(grid,i,j));
+        return ans;
+    }
+private:
+    int solve(vector<vector<int>>& grid, int i, int j) {
+        grid[i][j]=-grid[i][j];
+        int ans=0;
+        if(i-1>=0 && grid[i-1][j]>0)
+            ans=max(ans,solve(grid,i-1,j));
+        if(i+1<grid.size() && grid[i+1][j]>0)
+            ans=max(ans,solve(grid,i+1,j));
+        if(j-1>=0 && grid[i][j-1]>0)
+            ans=max(ans,solve(grid,i,j-1));
+        if(j+1<grid[i].size() && grid[i][j+1]>0)
+            ans=max(ans,solve(grid,i,j+1));
+        grid[i][j]=-grid[i][j];
+        return grid[i][j]+ans;
+    }
+};
