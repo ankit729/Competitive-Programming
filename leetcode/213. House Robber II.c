@@ -15,29 +15,22 @@
 // Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
 //              Total amount you can rob = 1 + 3 = 4.
 
-int max(int a,int b){
-    return (a>b)?a:b;
-}
-int rob(int* nums,int r){
-    if(r<=3){
-        int ans=0;
-        for(int i=0;i<r;i++)
-            ans=max(ans,nums[i]);
-        return ans;
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        if(n<=3)
+            return *max_element(nums.begin(),nums.end());
+        return max(robHelper(nums,0,n-2),robHelper(nums,1,n-1));
     }
-    int ans;
-    int dp[r];
-    dp[0]=nums[0];
-    dp[1]=nums[1];
-    dp[2]=nums[0]+nums[2];
-    for(int i=3;i<r-1;i++)
-        dp[i]=nums[i]+max(dp[i-2],dp[i-3]);
-    ans=max(dp[r-2],dp[r-3]);
-    dp[1]=nums[1];
-    dp[2]=nums[2];
-    dp[3]=nums[1]+nums[3];
-    for(int i=4;i<r;i++)
-        dp[i]=nums[i]+max(dp[i-2],dp[i-3]);
-    ans=max(ans,max(dp[r-1],dp[r-2]));
-    return ans;
-}
+private:
+    int robHelper(vector<int>& nums, int l, int r) {
+        int dp[r-l+1];
+        dp[0]=nums[l];
+        dp[1]=nums[l+1];
+        dp[2]=nums[l]+nums[l+2];
+        for(int i=l+3;i<=r;i++)
+            dp[i-l]=nums[i]+max(dp[i-l-2],dp[i-l-3]);
+        return max(dp[r-l-1],dp[r-l]);
+    }
+};
