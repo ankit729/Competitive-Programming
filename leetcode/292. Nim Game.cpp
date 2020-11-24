@@ -10,6 +10,9 @@
 //              No matter 1, 2, or 3 stones you remove, the last stone will always be 
 //              removed by your friend.
 
-bool canWinNim(int n){
-    return ((n&3)>0);
-}
+class Solution {
+public:
+    bool canWinNim(int n) {
+        return n&3;
+    }
+};
