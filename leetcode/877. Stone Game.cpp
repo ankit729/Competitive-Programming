@@ -27,6 +27,9 @@
 // 1 <= piles[i] <= 500
 // sum(piles) is odd.
 
-bool stoneGame(int* piles,int pr){
-    return true;
-}
+class Solution {
+public:
+    bool stoneGame(vector<int>& piles) {
+        return true;
+    }
+};
