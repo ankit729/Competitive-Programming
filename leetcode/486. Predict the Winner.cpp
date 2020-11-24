@@ -33,14 +33,14 @@ public:
         int n=nums.size();
         if(!(n&1))
             return true;
-        dp.assign(n,vector<int>(n,0));
+        dp.assign(n,vector<int>(n,INT_MIN));
         return PredictTheWinnerHelper(nums,0,n-1)>=0;
     }
 private:
     int PredictTheWinnerHelper(vector<int>& nums, int l, int r) {
         if(l==r)
             return nums[l];
-        if(dp[l][r])
+        if(dp[l][r]!=INT_MIN)
             return dp[l][r];
         int a=nums[l]-PredictTheWinnerHelper(nums,l+1,r);
         int b=nums[r]-PredictTheWinnerHelper(nums,l,r-1);
