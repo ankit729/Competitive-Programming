@@ -36,6 +36,8 @@
 class Solution {
 public:
     bool canIWin(int n, int target) {
+        if(target<=n)
+            return true;
     	int maxPossible=((n*(n+1))>>1);
         if(maxPossible<target)
             return false;
