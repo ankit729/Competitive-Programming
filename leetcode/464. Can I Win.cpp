@@ -35,19 +35,22 @@
 
 class Solution {
 public:
-    bool canIWin(int maxChoosableInteger, int desiredTotal) {
-        if(((maxChoosableInteger*(maxChoosableInteger+1))>>1)<desiredTotal)
+    bool canIWin(int n, int target) {
+    	int maxPossible=((n*(n+1))>>1);
+        if(maxPossible<target)
             return false;
-        vector<int8_t> vis(1<<maxChoosableInteger,-1);
-        return canIWinHelper(0,maxChoosableInteger,desiredTotal,vis);
+        if(maxPossible==target)
+            return n&1;
+        vector<int8_t> vis(1<<n,-1);
+        return solve(0,n,target,vis);
     }
 private:
-    bool canIWinHelper(int used, int maxChoosableInteger, int desiredTotal, vector<int8_t>& vis) {
+    bool solve(int used, int n, int target, vector<int8_t>& vis) {
         if(vis[used]!=-1)
             return vis[used];
-        for(int i=maxChoosableInteger;i>0;--i)
+        for(int i=n;i>0;--i)
             if((used&(1<<(i-1)))==0)
-                if(i>=desiredTotal || !canIWinHelper(used|(1<<(i-1)),maxChoosableInteger,desiredTotal-i,vis))
+                if(i>=target || !solve(used|(1<<(i-1)),n,target-i,vis))
                     return vis[used]=1;
         return vis[used]=0;
     }
