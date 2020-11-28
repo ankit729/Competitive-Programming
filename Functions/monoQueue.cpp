@@ -3,7 +3,7 @@ class monoQueue {
 public:
     void push(int val) {
         int count=0;
-        while(!mq.empty() && mq.back().first<=val){
+        while(!mq.empty() && mq.back().first<=val){//strictly decreasing sorting order
             count+=mq.back().second+1;
             mq.pop_back();
         }
