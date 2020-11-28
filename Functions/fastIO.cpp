@@ -1,3 +1,9 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define gc getchar
+#define gcu getchar_unlocked
+#define pc putchar
+#define pcu putchar_unlocked
 template<typename T> void scan(T &input) {
     input=0;
     bool negative=false;
@@ -25,6 +31,10 @@ template<typename T> void print(T output) {
 		putchar_unlocked('-');
 	while(i>=0)
 		putchar_unlocked(snum[i--]);
-	//putchar('\n');
+	putchar('\n');
 }
-ios_base::sync_with_stdio(false);cin.tie(NULL);
+int main() {
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	return 0;
+}
