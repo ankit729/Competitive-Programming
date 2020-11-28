@@ -27,7 +27,7 @@ public:
         stack<int> stack;
         int i=0;
         while(i<n){
-            if(stack.empty() || heights[i]>=heights[stack.top()]){
+            if(stack.empty() || heights[i]>heights[stack.top()]){
                 stack.push(i++);
                 continue;
             }
