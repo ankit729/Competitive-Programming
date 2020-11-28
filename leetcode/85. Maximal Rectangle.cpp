@@ -38,7 +38,7 @@ private:
         stack<int> stack;
         int i=0;
         while(i<n){
-            if(stack.empty() || dp[i]>=dp[stack.top()]){
+            if(stack.empty() || dp[i]>dp[stack.top()]){
                 stack.push(i++);
                 continue;
             }
