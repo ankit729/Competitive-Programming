@@ -35,11 +35,16 @@
 class Solution {
 public:
     bool canReach(vector<int>& arr, int start) {
-        if(start<0 || start>=arr.size() || arr[start]<0)
+        int n=arr.size();
+        return solve(arr,start,n);
+    }
+private:
+    bool solve(vector<int>& arr, int start, int& n) {
+        if(start<0 || start>=n || arr[start]<0)
             return false;
         if(arr[start]==0)
             return true;
         arr[start]=-arr[start];
-        return canReach(arr,start+arr[start]) || canReach(arr,start-arr[start]);
+        return solve(arr,start+arr[start],n) || solve(arr,start-arr[start],n);
     }
 };
