@@ -1,17 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define GC getchar
-#define GCU getchar_unlocked
-#define PC putchar
-#define PCU putchar_unlocked
+#define gc getchar
+#define gcu getchar_unlocked
+#define pc putchar
+#define pcu putchar_unlocked
+#define pii pair<int,int>
 template<typename T> void scan(T &input) {
     input=0;
     bool negative=false;
-    register T c=GCU();
+    register T c=gcu();
     if(c=='-')
-        negative=true,c=GCU();
-    for(;c<48 || c>57;c=GCU());
-    for(;(c>47 && c<58);c=GCU())
+        negative=true,c=gcu();
+    for(;c<48 || c>57;c=gcu());
+    for(;(c>47 && c<58);c=gcu())
         input=(input<<3)+(input<<1)+(c&15);
     if(negative)
         input=-input;
@@ -28,9 +29,9 @@ template<typename T> void print(T output) {
 	}while(output);
 	i--;
 	if(negative)
-		PCU('-');
+		pcu('-');
 	while(i>=0)
-		PCU(snum[i--]);
+		pcu(snum[i--]);
 	putchar('\n');
 }
 int main() {
