@@ -39,29 +39,24 @@
 // Each grid[i][j] is an integer in the set {-1, 0, 1}.
 // It is guaranteed that grid[0][0] and grid[N-1][N-1] are not -1.
 
-int max(int a,int b){
-    return (a>b)?a:b;
-}
-int cherryPickup_dp(int r,int** grid,int dp[r][r][r],int r1,int c1,int c2){
-    int r2=r1+c1-c2;
-    if(r1==r || c1==r || r2==r || c2==r || grid[r1][c1]==-1 || grid[r2][c2]==-1)
-        return INT_MIN+1;
-    if(r1==r-1 && c1==r-1)
-        return grid[r-1][r-1];
-    if(dp[r1][c1][c2]!=INT_MIN)
-        return dp[r1][c1][c2];
-    int a=grid[r1][c1]+((r1!=r2)?grid[r2][c2]:0);
-    a+=max(max(cherryPickup_dp(r,grid,dp,r1,c1+1,c2+1), cherryPickup_dp(r,grid,dp,r1,c1+1,c2)), max(cherryPickup_dp(r,grid,dp,r1+1,c1,c2+1), cherryPickup_dp(r,grid,dp,r1+1,c1,c2)));
-    dp[r1][c1][c2]=a;
-    return a;
-}
-int cherryPickup(int** grid,int r,int* c){
-    if(r==0)
-        return 0;
-    int dp[r][r][r];
-    for(int i=0;i<r;i++)
-        for(int j=0;j<r;j++)
-            for(int k=0;k<r;k++)
-                dp[i][j][k]=INT_MIN;
-    return max(0,cherryPickup_dp(r,grid,dp,0,0,0));
-}
+class Solution {
+public:
+    int cherryPickup(vector<vector<int>>& grid) {
+        int R=grid.size();
+        vector<vector<vector<int>>> dp(R,vector<vector<int>>(R,vector<int>(R,INT_MIN)));
+        return max(0,dfs(grid,dp,R,0,0,0));
+    }
+private:
+    int dfs(vector<vector<int>>& grid, vector<vector<vector<int>>>& dp, int& R, int r1, int c1, int r2) {
+        int c2=r1+c1-r2;
+        if(r1==R || c1==R || r2==R || c2==R || grid[r1][c1]==-1 || grid[r2][c2]==-1)
+            return INT_MIN;
+        if(r1==R-1 && c1==R-1)
+            return grid[r1][c1];
+        if(dp[r1][c1][r2]!=INT_MIN)
+            return dp[r1][c1][r2];
+        int ans=grid[r1][c1]+(r1==r2?0:grid[r2][c2]);
+        ans+=max({dfs(grid,dp,R,r1+1,c1,r2+1),dfs(grid,dp,R,r1+1,c1,r2),dfs(grid,dp,R,r1,c1+1,r2+1),dfs(grid,dp,R,r1,c1+1,r2)});
+        return dp[r1][c1][r2]=ans;
+    }
+};
