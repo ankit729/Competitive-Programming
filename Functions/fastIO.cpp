@@ -34,8 +34,8 @@ template<typename T> void print(T output) {
 		pcu(snum[i--]);
 	putchar('\n');
 }
+auto fastIO=[](){std::ios::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);return 0;}();
 int main() {
-    ios_base::sync_with_stdio(false);cin.tie(NULL);
 	
 	return 0;
 }
