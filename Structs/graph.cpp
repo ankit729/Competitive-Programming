@@ -1,4 +1,6 @@
 class Graph {
+    int v;
+    vector<int>* adj;
 public:
     Graph(int V) {
         v=V;
@@ -22,7 +24,4 @@ public:
                 return true;
         return false;
     }
-private:
-    int v;
-    vector<int>* adj;
 };
