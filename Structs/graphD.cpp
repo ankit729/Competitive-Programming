@@ -1,8 +1,8 @@
-class Graph {
+class graphD {
     int v;
     vector<int>* adj;
 public:
-    Graph(int V) {
+    graphD(int V) {
         v=V;
         adj=new vector<int>[v];
     }
