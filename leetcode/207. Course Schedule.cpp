@@ -27,20 +27,18 @@
 // You may assume that there are no duplicate edges in the input prerequisites.
 // 1 <= numCourses <= 10^5
 
-class Graph {
-    int v;
-    vector<int>* adj;
+class graphD {
 public:
-    Graph(int V) {
+    graphD(int V) {
         v=V;
         adj=new vector<int>[v];
     }
     void addEdge(int u,int v) {
-        adj[u].emplace_back(v);
+        adj[u].push_back(v);
     }
     bool isCyclicUtil(int u, vector<int8_t>& visited) {
         visited[u]=1;
-        for(int v:adj[u])
+        for(auto& v:adj[u])
             if(visited[v]==1 || (visited[v]==0 && isCyclicUtil(v,visited)))
                 return true;
         visited[u]=2;
@@ -53,12 +51,15 @@ public:
                 return true;
         return false;
     }
+private:
+    int v;
+    vector<int>* adj;
 };
 
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        Graph g(numCourses);
+        graphD g(numCourses);
         for(auto& edge:prerequisites)
             g.addEdge(edge[1],edge[0]);
         return !g.isCyclic();
