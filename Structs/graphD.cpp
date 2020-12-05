@@ -1,17 +1,15 @@
 class graphD {
-    int v;
-    vector<int>* adj;
 public:
     graphD(int V) {
         v=V;
         adj=new vector<int>[v];
     }
     void addEdge(int u,int v) {
-        adj[u].emplace_back(v);
+        adj[u].push_back(v);
     }
     bool isCyclicUtil(int u, vector<int8_t>& visited) {
         visited[u]=1;
-        for(int v:adj[u])
+        for(auto& v:adj[u])
             if(visited[v]==1 || (visited[v]==0 && isCyclicUtil(v,visited)))
                 return true;
         visited[u]=2;
@@ -24,4 +22,7 @@ public:
                 return true;
         return false;
     }
+private:
+    int v;
+    vector<int>* adj;
 };
