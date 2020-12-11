@@ -2,9 +2,13 @@
 using namespace std;
 #define gc getchar
 #define gcu getchar_unlocked
+#define ll long long int
+#define pb push_back
 #define pc putchar
 #define pcu putchar_unlocked
 #define pii pair<int,int>
+#define vi vector<int>
+#define vvi vector<vi>
 template<typename T> void scan(T &input) {
     input=0;
     bool negative=false;
