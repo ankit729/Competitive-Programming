@@ -13,27 +13,22 @@
 
 class Solution {
 public:
-    vector<int> dp;
-    int n;
     int maximalRectangle(vector<vector<char>>& matrix) {
-        if(matrix.empty())
+        int r=matrix.size(),c=(!r)?0:matrix[0].size();
+        if(r==0 || c==0)
             return 0;
-        int r=matrix.size();
-        if(matrix[0].empty())
-            return 0;
-        int c=matrix[0].size();
-        int ans=0;
-        n=c;
-        dp.assign(n,0);
-        for(int i=0;i<r;i++){
-            for(int j=0;j<c;j++)
+        int n=c,ans=0;
+        int dp[n];
+        memset(dp,0,sizeof(dp));
+        for(int i=0;i<r;++i){
+            for(int j=0;j<c;++j)
                 dp[j]=(matrix[i][j]-'0')?dp[j]+1:0;
-            ans=max(ans,largestRectangleArea());
+            ans=max(ans,largestRectangleArea(dp,n));
         }
         return ans;
     }
 private:
-    int largestRectangleArea() {
+    int largestRectangleArea(int* dp, int n) {
         int ans=0;
         stack<int> stack;
         int i=0;
