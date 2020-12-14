@@ -32,19 +32,10 @@ public:
         for(int i=0;i<n;++i)
             dp[i]=i;
         for(int i=0;i<n;++i){
-            int j=i,k=i;
-            while(j>=0 && k<n && s[j]==s[k]){
+            for(int j=i,k=i;j>=0 && k<n && s[j]==s[k];--j,++k)
                 dp[k]=min(dp[k],(j>0)?1+dp[j-1]:0);
-                --j;
-                ++k;
-            }
-            j=i;
-            k=i+1;
-            while(j>=0 && k<n && s[j]==s[k]){
+            for(int j=i,k=i+1;j>=0 && k<n && s[j]==s[k];--j,++k)
                 dp[k]=min(dp[k],(j>0)?1+dp[j-1]:0);
-                --j;
-                ++k;
-            }
         }
         return dp[n-1];
     }
