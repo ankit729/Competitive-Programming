@@ -34,7 +34,7 @@ public:
                 i++;
             end.push_back(i);
         }
-        return kSum(nums,n,start,end,start.size(),0,0,target,4);
+        return kSum(nums,n,start,end,start.size(),0,0,target,k);
     }
 private:
     vector<vector<int>> kSum(vector<int>& nums, int n, vector<int>& start, vector<int>& end, int size, int i, int ii, int target, int k) {
