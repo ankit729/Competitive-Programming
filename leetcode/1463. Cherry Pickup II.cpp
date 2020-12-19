@@ -61,8 +61,8 @@ public:
             for(int c1=0;c1<C;++c1){
                 for(int c2=c1;c2<C;++c2){
                     int temp=grid[r][c1]+((c1==c2)?0:grid[r][c2]);
-                    for(int nc1=c1-1;nc1<=c1+1;++nc1){
-                        for(int nc2=c2-1;nc2<=c2+1;++nc2){
+                    for(int nc1=c1+1;nc1>=c1-1;--nc1){
+                        for(int nc2=c2+1;nc2>=nc1 && nc2>=c2-1;--nc2){
                             if(nc1>=0 && nc1<C && nc2>=0 && nc2<C && dp[nc1][nc2]>=0)
                                 dp2[c1][c2]=max(dp2[c1][c2],temp+dp[nc1][nc2]);
                         }
