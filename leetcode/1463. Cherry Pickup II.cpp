@@ -50,26 +50,27 @@
 
 class Solution {
 public:
-    int dp[70][70][70],n,m;
     int cherryPickup(vector<vector<int>>& grid) {
-        n=grid.size();
-        m=grid[0].size();
+        int R=grid.size(),C=(R>0)?grid[0].size():0;
+        int dp[C][C];
         memset(dp,-1,sizeof(dp));
-        return solve(grid,0,0,m-1);
-    }
-private:
-    int solve(vector<vector<int>>& grid, int row, int col1, int col2){
-        if(col1<0 || col1>=m || col2<0 || col2>=m)
-            return 0;
-        if(dp[row][col1][col2]>=0)
-            return dp[row][col1][col2];
-        int ans=grid[row][col1]+(col1==col2?0:grid[row][col2]);
-        if(row==n-1)
-            return dp[row][col1][col2]=ans;
-        int M=0;
-        for(int i=-1;i<=1;i++)
-            for(int j=-1;j<=1;j++)
-                M=max(M,solve(grid,row+1,col1+i,col2+j));
-        return dp[row][col1][col2]=ans+M;
+        dp[0][C-1]=grid[0][0]+((0==C-1?0:grid[0][C-1]));
+        for(int r=1;r<R;++r){
+            int dp2[C][C];
+            memset(dp2,-1,sizeof(dp2));
+            for(int c1=0;c1<C;++c1){
+                for(int c2=c1;c2<C;++c2){
+                    int temp=grid[r][c1]+((c1==c2)?0:grid[r][c2]);
+                    for(int nc1=c1-1;nc1<=c1+1;++nc1){
+                        for(int nc2=c2-1;nc2<=c2+1;++nc2){
+                            if(nc1>=0 && nc1<C && nc2>=0 && nc2<C && dp[nc1][nc2]>=0)
+                                dp2[c1][c2]=max(dp2[c1][c2],temp+dp[nc1][nc2]);
+                        }
+                    }
+                }
+            }
+            memcpy(dp,dp2,sizeof(dp2));
+        }
+        return *max_element(&dp[0][0],&dp[0][0]+C*C);
     }
 };
