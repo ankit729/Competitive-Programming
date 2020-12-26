@@ -17,22 +17,19 @@
 // Output: 3
 // Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
-int numDecodings(char* s){
-    int n=strlen(s);
-    if(n==0)
-        return 0;
-    int dp[n+1];
-    dp[0]=1;
-    for(int i=1;i<=n;i++){
-        dp[i]=0;
-        int temp=s[i-1]-'0';
-        if(1<=temp&&temp<=9)
-            dp[i]+=dp[i-1];
-        if(i>=2){
-            temp=(s[i-2]-'0')*10+s[i-1]-'0';
-            if(10<=temp && temp<=26)
+class Solution {
+public:
+    int numDecodings(string s) {
+        int n=s.length();
+        int dp[n+1];
+        dp[0]=1;
+        for(int i=1;i<=n;++i){
+            dp[i]=0;
+            if(s[i-1]>'0')
+                dp[i]+=dp[i-1];
+            if(i>=2 && (s[i-2]=='1' || (s[i-2]=='2' && s[i-1]<='6')))
                 dp[i]+=dp[i-2];
         }
+        return dp[n];
     }
-    return dp[n];
-}
+};
