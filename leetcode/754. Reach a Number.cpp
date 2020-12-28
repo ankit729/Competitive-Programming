@@ -22,8 +22,10 @@
 
 class Solution {
 public:
-    int reachNumber(int target) {
-        int x=abs(target),sum=0,i=0;
+    int reachNumber(int x) {
+        int sum=0,i=0;
+        if(x<0)
+            x=-x;
         while(sum<x)
             sum+=++i;
         while((sum-x)&1)
