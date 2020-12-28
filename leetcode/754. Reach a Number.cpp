@@ -20,18 +20,14 @@
 // Note:
 // target will be a non-zero integer in the range [-10^9, 10^9].
 
-int reachNumber(int target){
-    target=abs(target);
-    int i=0,s=0;
-    while(s<target){
-        i++;
-        s+=i;
+class Solution {
+public:
+    int reachNumber(int target) {
+        int x=abs(target),sum=0,i=0;
+        while(sum<x)
+            sum+=++i;
+        while((sum-x)&1)
+            sum+=++i;
+        return i;
     }
-    if(s==target)
-        return i;
-    if(!((s-target)&1))
-        return i;
-    if(!(i&1))
-        return i+1;
-    return i+2;
-}
+};
