@@ -50,8 +50,7 @@ public:
         arr.push_back(INT_MAX);
         int n=arr.size();
         int dp[n];
-        for(int i=0;i<n;++i)
-            dp[i]=1;
+        fill(dp,dp+n,1);
         vector<int> st;
         for(int i=0;i<n;++i){
             while(!st.empty() && arr[i]>arr[st.back()]){
