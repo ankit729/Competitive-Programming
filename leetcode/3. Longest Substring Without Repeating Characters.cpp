@@ -32,16 +32,16 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int l=0,ans=0;
-        vector<int> loc(128,-1);
+        int ans=0;
+        bitset<128> mask;
+        int l=0;
         for(int r=0;s[r];++r){
-            if(loc[s[r]]>=0){
-                int temp=loc[s[r]];
-                for(;l<=temp;++l)
-                    loc[s[l]]=-1;
-                l=temp+1;
+            if(mask[s[r]]){
+                while(l<r && s[l]!=s[r])
+                    mask.flip(s[l++]);
+                mask.flip(s[l++]);
             }
-            loc[s[r]]=r;
+            mask.flip(s[r]);
             ans=max(ans,r-l+1);
         }
         return ans;
