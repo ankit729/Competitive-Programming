@@ -34,8 +34,7 @@ public:
     int lengthOfLongestSubstring(string s) {
         int ans=0;
         bool mask[128]={0};
-        int l=0;
-        for(int r=0;s[r];++r){
+        for(int l=0,r=0;s[r];++r){
             while(mask[s[r]])
                 mask[s[l++]]=false;
             mask[s[r]]=true;
