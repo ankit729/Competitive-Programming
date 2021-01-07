@@ -37,7 +37,7 @@ public:
         int l=0;
         for(int r=0;s[r];++r){
             if(mask[s[r]]){
-                while(l<r && s[l]!=s[r])
+                while(s[l]!=s[r])
                     mask.flip(s[l++]);
                 mask.flip(s[l++]);
             }
