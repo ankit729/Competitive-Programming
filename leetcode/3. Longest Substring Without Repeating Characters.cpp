@@ -33,15 +33,12 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         int ans=0;
-        bitset<128> mask;
+        bool mask[128]={0};
         int l=0;
         for(int r=0;s[r];++r){
-            if(mask[s[r]]){
-                while(s[l]!=s[r])
-                    mask.flip(s[l++]);
-                mask.flip(s[l++]);
-            }
-            mask.flip(s[r]);
+            while(mask[s[r]])
+                mask[s[l++]]=false;
+            mask[s[r]]=true;
             ans=max(ans,r-l+1);
         }
         return ans;
