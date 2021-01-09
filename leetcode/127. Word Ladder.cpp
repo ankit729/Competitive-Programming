@@ -45,7 +45,7 @@ public:
             nw++;
         }
         int ans=1;
-        unordered_set<string_view> q[3];int front=0,back=1,temp=2;
+        unordered_set<string> q[3];int front=0,back=1,temp=2;
         q[front].insert(beginWord);
         q[back].insert(endWord);
         bool visited[nw];
@@ -53,8 +53,7 @@ public:
         while(!q[front].empty()){
             if(q[front].size()>q[back].size())
                 swap(front,back);
-            for(auto ss:q[front]){
-                string s=ss.data();
+            for(auto s:q[front]){
                 for(int i=0;i<n;++i){
                     char ch='*';
                     swap(ch,s[i]);
