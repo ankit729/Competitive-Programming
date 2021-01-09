@@ -53,12 +53,12 @@ public:
         while(!q[front].empty()){
             if(q[front].size()>q[back].size())
                 swap(front,back);
-            for(auto& ss:q[front]){
+            for(auto ss:q[front]){
                 string s=ss.data();
                 for(int i=0;i<n;++i){
                     char ch='*';
                     swap(ch,s[i]);
-                    for(auto& nei:mp[s]){
+                    for(auto nei:mp[s]){
                         if(q[back].count(wordList[nei]))
                             return ans+1;
                         if(!visited[nei]){
