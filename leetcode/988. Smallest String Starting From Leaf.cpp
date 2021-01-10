@@ -56,6 +56,8 @@ private:
             reverse(s.begin(),s.end());
             ans=min(ans,s);
             reverse(s.begin(),s.end());
+            s.pop_back();
+            return;
         }
         if(root->left)
             helper(root->left,s,ans);
