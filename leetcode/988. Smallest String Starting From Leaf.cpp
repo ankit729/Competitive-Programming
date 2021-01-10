@@ -46,7 +46,7 @@ class Solution {
 public:
     string smallestFromLeaf(TreeNode* root, string s="") {
         if(!root)
-            return "|";
+            return "~";
         s=string(1,'a'+root->val)+s;
         return (!root->left && !root->right)?s:min(smallestFromLeaf(root->left,s),smallestFromLeaf(root->right,s));
     }
