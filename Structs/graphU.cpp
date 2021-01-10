@@ -1,6 +1,4 @@
 class graphU {
-    int v;
-    vector<int>* adj;
 public:
     graphU(int V) {
         v=V;
@@ -10,6 +8,16 @@ public:
         adj[u].emplace_back(v);
         adj[v].emplace_back(u);
     }
+    bool isCyclic() {
+        vector<bool> visited(v,false);
+        for(int i=0;i<v;++i)
+            if(!visited[i] && isCyclicUtil(i,visited,-1))
+                return true;
+        return false;
+    }
+private:
+    int v;
+    vector<int>* adj;
     bool isCyclicUtil(int& u, vector<bool>& visited, int parent) {
         visited[u]=true;
         for(int v:adj[u]){
@@ -20,13 +28,6 @@ public:
             else if(v!=parent)
                 return true;
         }
-        return false;
-    }
-    bool isCyclic() {
-        vector<bool> visited(v,false);
-        for(int i=0;i<v;++i)
-            if(!visited[i] && isCyclicUtil(i,visited,-1))
-                return true;
         return false;
     }
 };
