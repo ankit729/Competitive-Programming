@@ -44,10 +44,23 @@
  */
 class Solution {
 public:
-    string smallestFromLeaf(TreeNode* root, string s="") {
-        if(!root)
-            return "~";
-        s=string(1,'a'+root->val)+s;
-        return (!root->left && !root->right)?s:min(smallestFromLeaf(root->left,s),smallestFromLeaf(root->right,s));
+    string smallestFromLeaf(TreeNode* root) {
+        string s,ans="~";
+        helper(root,s,ans);
+        return ans;
+    }
+private:
+    void helper(TreeNode* root, string& s, string& ans) {
+        s+=string(1,'a'+root->val);
+        if(!root->left && !root->right){
+            reverse(s.begin(),s.end());
+            ans=min(ans,s);
+            reverse(s.begin(),s.end());
+        }
+        if(root->left)
+            helper(root->left,s,ans);
+        if(root->right)
+            helper(root->right,s,ans);
+        s.pop_back();
     }
 };
