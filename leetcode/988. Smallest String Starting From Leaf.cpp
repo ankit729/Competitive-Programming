@@ -51,7 +51,7 @@ public:
     }
 private:
     void helper(TreeNode* root, string& s, string& ans) {
-        s+=string(1,'a'+root->val);
+        s+='a'+root->val;
         if(!root->left && !root->right){
             reverse(s.begin(),s.end());
             ans=min(ans,s);
