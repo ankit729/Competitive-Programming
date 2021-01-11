@@ -51,18 +51,14 @@ public:
     int longestZigZag(TreeNode* root) {
         if(!root)
             return 0;
-        int ans=0;
-        helper(root,0,ans);
-        return ans-1;
+        return helper(root,true,-1);
     }
 private:
-    int helper(TreeNode* root, bool child, int& ans) {
-        int l[2]={0};
-        if(root->left)
-            l[0]=helper(root->left,false,ans);
-        if(root->right)
-            l[1]=helper(root->right,true,ans);
-        ans=max(ans,1+max(l[0],l[1]));
-        return 1+l[!child];
+    int helper(TreeNode* root, bool child, int depth) {
+        if(!root)
+            return depth;
+        if(child)
+            return max(helper(root->left,!child,depth+1),helper(root->right,child,0));
+        return max(helper(root->right,!child,depth+1),helper(root->left,child,0));
     }
 };
