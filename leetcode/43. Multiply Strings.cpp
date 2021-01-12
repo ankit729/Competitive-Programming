@@ -27,7 +27,7 @@ public:
         string ans(n1+n2,'0');
         for(int i=n1-1;i>=0;--i){
             for(int j=n2-1;j>=0;--j){
-                int8_t digit=(num1[i]-'0')*(num2[j]-'0')+(ans[i+j+1]-'0');
+                int digit=(num1[i]-'0')*(num2[j]-'0')+(ans[i+j+1]-'0');
                 ans[i+j+1]='0'+(digit%10);
                 ans[i+j]+=digit/10;
             }
