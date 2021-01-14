@@ -45,7 +45,7 @@ public:
                 if(root->right)
                     q.push(root->right);
             }
-            ans.push_back(temp);
+            ans.push_back(move(temp));
             flag=!flag;
         }
         return ans;
