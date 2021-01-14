@@ -55,13 +55,15 @@ public:
         if(!root)
             return {};
         vector<int> ans;
-        helper(root,ans);
+        stack<Node*> st;
+        st.push(root);
+        while(!st.empty()){
+            root=st.top();
+            st.pop();
+            ans.push_back(root->val);
+            for(auto it=root->children.rbegin();it!=root->children.rend();++it)
+                st.push(*it);
+        }
         return ans;
-    }
-private:
-    void helper(Node* root, vector<int>& ans) {
-        ans.push_back(root->val);
-        for(auto& child:root->children)
-            helper(child,ans);
     }
 };
