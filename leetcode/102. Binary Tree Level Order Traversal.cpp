@@ -34,17 +34,18 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty()){
-            ans.push_back({});
             int n=q.size();
-            while(n--){
+            vector<int> temp(n);
+            for(int i=0;i<n;++i){
                 root=q.front();
                 q.pop();
-                ans.back().push_back(root->val);
+                temp[i]=root->val;
                 if(root->left)
                     q.push(root->left);
                 if(root->right)
                     q.push(root->right);
             }
+            ans.push_back(move(temp));
         }
         return ans;
     }
