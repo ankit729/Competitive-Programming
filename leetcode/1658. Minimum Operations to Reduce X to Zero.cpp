@@ -29,22 +29,15 @@
 class Solution {
 public:
     int minOperations(vector<int>& nums, int x) {
-        int n=nums.size();
-        int sum=accumulate(nums.begin(),nums.end(),0)-x;
-        if(sum<0)
-            return -1;
-        if(sum==0)
-            return n;
-        int curr=0,ans=0;
-        int l=0;
-        for(int r=0;r<n;r++){
-            curr+=nums[r];
-            while(curr>=sum){
-                if(curr==sum)
-                    ans=max(ans,r-l+1);
-                curr-=nums[l++];
-            }
+        int n=nums.size(),ans=n+1;
+        int sum=accumulate(nums.begin(),nums.end(),-x);
+        for(int l=0,r=0;r<n;++r){
+            sum-=nums[r];
+            while(l<=r && sum<0)
+                sum+=nums[l++];
+            if(sum==0)
+                ans=min(ans,n-r+l-1);
         }
-        return ans==0?-1:n-ans;
+        return (ans==n+1)?-1:ans;
     }
 };
