@@ -31,10 +31,14 @@
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
-        auto compare=[](vector<int>& a, vector<int>& b){
-            return a[0]*a[0]+a[1]*a[1]<b[0]*b[0]+b[1]*b[1];
-        };
-        nth_element(points.begin(),points.begin()+K-1,points.end(),compare);
-        return vector<vector<int>> (points.begin(),points.begin()+K);
+        int n=points.size();
+        vector<pair<int,int>> v(n);
+        for(int i=0;i<n;++i)
+            v[i]={points[i][0]*points[i][0]+points[i][1]*points[i][1],i};
+        nth_element(v.begin(),v.begin()+K-1,v.end());
+        vector<vector<int>> ans(K);
+        while(K--)
+            ans[K]=points[v[K].second];
+        return ans;
     }
 };
