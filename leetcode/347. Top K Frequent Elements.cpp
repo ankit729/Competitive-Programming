@@ -21,17 +21,14 @@ public:
         unordered_map<int,int> count;
         for(auto& x:nums)
             count[x]++;
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-        for(auto& x:count){
-            pq.push({x.second,x.first});
-            if(pq.size()>k)
-                pq.pop();
-        }
+        vector<pair<int,int>> v(count.size());
+        int i=0;
+        for(auto& x:count)
+            v[i++]={x.second,x.first};
+        nth_element(v.begin(),v.begin()+k-1,v.end(),[](auto& a, auto& b){return a.first>b.first;});
         vector<int> ans(k);
-        while(k--){
-            ans[k]=pq.top().second;
-            pq.pop();
-        }
+        while(k--)
+            ans[k]=v[k].second;
         return ans;
     }
 };
