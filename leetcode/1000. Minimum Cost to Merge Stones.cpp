@@ -50,16 +50,18 @@ public:
             nums[i]+=nums[i-1];
         nums.insert(nums.begin(),0);
         int dp[n+1][n+1];
-        for(int i=0;i<K;++i)
-            for(int l=0,r=i;r<=n;++l,++r)
+        for(int len=0;len<K;++len)
+            for(int l=0,r=len;r<=n;++l,++r)
                 dp[l][r]=0;
-        
         for(int len=K;len<=n;++len){
+            bool flag=false;
+            if((len-1)%(K-1)==0)
+                flag=true;
             for(int l=1,r=len;r<=n;++l,++r){
                 dp[l][r]=INT_MAX;
                 for(int i=l;i<r;i+=K-1)
                     dp[l][r]=min(dp[l][r],dp[l][i]+dp[i+1][r]);
-                if((len-1)%(K-1)==0)
+                if(flag)
                     dp[l][r]+=nums[r]-nums[l-1];
             }
         }
