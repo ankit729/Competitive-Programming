@@ -42,7 +42,7 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        TreeNode* ans=root;
+        TreeNode* ans=NULL;
         helper(root,p,q,ans);
         return ans;
     }
@@ -50,7 +50,10 @@ private:
     bool helper(TreeNode* root, TreeNode* p, TreeNode* q, TreeNode*& ans) {
         if(!root)
             return false;
-        bool left=helper(root->left,p,q,ans),right=helper(root->right,p,q,ans);
+        bool left=helper(root->left,p,q,ans);
+        if(ans)
+            return true;
+        bool right=helper(root->right,p,q,ans);
         if((left && right) || ((left || right) && (root==p || root==q))){
             ans=root;
             return true;
