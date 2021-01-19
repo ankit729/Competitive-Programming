@@ -30,7 +30,7 @@ class Solution {
 public:
     string longestPalindrome(string& s) {
         int n=s.length();
-        n=1+(n<<1);
+        n=(n<<1)|1;
         int L[n];
         int M=0,Mi=0;
         for(int i=1,C=0,R=0;i<n;++i){
