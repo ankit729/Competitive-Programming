@@ -30,11 +30,7 @@
 class Solution {
 public:
     bool canReorderDoubled(vector<int>& arr) {
-        sort(arr.begin(),arr.end(),[&](auto& a,auto& b){
-            if(a<0 && b<0)
-                return a>b;
-            return a<b;
-        });
+        sort(arr.begin(),arr.end(),[&](auto& a,auto& b){return abs(a)<abs(b);});
         unordered_map<int,int> mp;
         for(auto& x:arr)
             mp[x]++;
