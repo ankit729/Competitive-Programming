@@ -35,7 +35,7 @@
 
 class Solution {
 public:
-    bool isValid(string s) {
+    bool isValid(string& s) {
         stack<char> st;
         for(auto& ch:s){
             if(ch=='(' || ch=='{' || ch=='[')
