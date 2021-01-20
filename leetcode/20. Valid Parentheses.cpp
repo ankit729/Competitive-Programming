@@ -36,17 +36,17 @@
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> a;
-        for(auto x:s){
-            if(x=='(' || x=='{' || x=='[')
-                a.push(x);
+        stack<char> st;
+        for(auto& ch:s){
+            if(ch=='(' || ch=='{' || ch=='[')
+                st.push(ch);
             else{
-                if(!a.empty() && ((a.top()=='(' && x==')') || (a.top()=='{' && x=='}') || (a.top()=='[' && x==']')))
-                    a.pop();
+                if(!st.empty() && ((st.top()=='(' && ch==')') || (st.top()=='{' && ch=='}') || (st.top()=='[' && ch==']')))
+                    st.pop();
                 else
                     return false;
             }
         }
-        return a.empty();
+        return st.empty();
     }
 };
