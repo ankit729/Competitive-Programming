@@ -35,18 +35,18 @@
 
 class Solution {
 public:
-    bool isValid(string& s) {
-        stack<char> st;
+    bool isValid(string s) {
+        int i=-1;
         for(auto& ch:s){
             if(ch=='(' || ch=='{' || ch=='[')
-                st.push(ch);
+                s[++i]=ch;
             else{
-                if(!st.empty() && ((st.top()=='(' && ch==')') || (st.top()=='{' && ch=='}') || (st.top()=='[' && ch==']')))
-                    st.pop();
+                if(i>=0 && ((s[i]=='(' && ch==')') || (s[i]=='{' && ch=='}') || (s[i]=='[' && ch==']')))
+                    i--;
                 else
                     return false;
             }
         }
-        return st.empty();
+        return i==-1;
     }
 };
