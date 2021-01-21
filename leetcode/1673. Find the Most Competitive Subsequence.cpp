@@ -27,25 +27,13 @@ class Solution {
 public:
     vector<int> mostCompetitive(vector<int>& nums, int k) {
         int n=nums.size();
-        int i=0;
-        stack<int> s;
-        int s_size=0;
-        for(int i=0;i<n;++i){
-            while(s_size>0 && nums[i]<s.top() && i+k-s_size<n){
-                s.pop();
-                s_size--;
-            }
-            if(s_size<k){
-                s.push(nums[i]);
-                s_size++;
-            }
-        }
         vector<int> ans(k);
-        while(k--){
-            ans[k]=s.top();
-            s.pop();
+        for(int i=0,j=-1;i<n;++i){
+            while(j>=0 && nums[i]<ans[j] && i+k-j-1<n)
+                j--;
+            if(j+1<k)
+                ans[++j]=nums[i];
         }
         return ans;
     }
 };
-auto fastIO=[](){std::ios::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);return 0;}();
