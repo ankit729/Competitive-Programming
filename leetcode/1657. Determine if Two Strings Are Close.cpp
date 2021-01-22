@@ -45,20 +45,20 @@
 class Solution {
 public:
     bool closeStrings(string word1, string word2) {
-        int count1[26]={};
-        int count2[26]={};
-        for(auto& x:word1)
-            count1[x-'a']++;
-        for(auto& x:word2)
-            count2[x-'a']++;
-        for(int i=0;i<26;++i)
-            if((count1[i]>0)^(count2[i]>0))
+        int c1[26]={},c2[26]={};
+        for(auto& ch:word1)
+            c1[ch-'a']++;
+        for(auto& ch:word2){
+            if(c1[ch-'a']==0)
                 return false;
-        sort(count1,count1+26);
-        sort(count2,count2+26);
-        for(int i=0;i<26;++i)
-            if(count1[i]!=count2[i])
+            c2[ch-'a']++;
+        }
+        sort(c1,c1+26);
+        sort(c2,c2+26);
+        for(int i=0;i<26;++i){
+            if(c1[i]!=c2[i])
                 return false;
+        }
         return true;
     }
 };
