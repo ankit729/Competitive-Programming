@@ -31,33 +31,18 @@
 class Solution {
 public:
     vector<int> findAnagrams(string& s, string& p) {
-        int ns=s.length(),np=p.length();
+        int np=p.length();
         vector<int> ans;
-        if(np>ns)
-            return {};
-        int c1[26]={},c2[26]={};
-        for(int i=0;i<np;++i)
-            c1[p[i]-'a']++,c2[s[i]-'a']++;
-        int total=0;
-        for(int i=0;i<26;++i)
-            if(c1[i]==c2[i])
-                total++;
-        if(total==26)
-            ans.push_back(0);
-        for(int l=0,r=np;r<ns;++l,++r){
-            int L=s[l]-'a',R=s[r]-'a';
-            c2[L]--;
-            if(c1[L]==c2[L])
-                total++;
-            else if(c1[L]-1==c2[L])
+        int c[26]={};
+        for(auto& ch:p)
+            c[ch-'a']++;
+        for(int l=0,r=0,total=np;s[r];++r){
+            if(--c[s[r]-'a']>=0)
                 total--;
-            c2[R]++;
-            if(c1[R]==c2[R])
-                total++;
-            else if(c1[R]+1==c2[R])
-                total--;
-            if(total==26)
-                ans.push_back(l+1);
+            while(s[l] && c[s[l]-'a']<0)
+                c[s[l++]-'a']++;
+            if(total==0 && r-l+1==np)
+                ans.push_back(l);
         }
         return ans;
     }
