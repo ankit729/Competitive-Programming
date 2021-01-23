@@ -21,23 +21,23 @@
 class Solution {
     struct trienode {
         int count=0;
-        trienode* zero=nullptr;
-        trienode* one=nullptr;
+        trienode* zero=NULL;
+        trienode* one=NULL;
     };
 public:
-    vector<int> countSmaller(vector<int>& nums) {
+    vector<int> countSmaller(vector<int> nums) {
+        int n=nums.size();
         trienode* root=new trienode();
         root->zero=new trienode();
         root->one=new trienode();
-        int n=nums.size();
-        for(int i=n-1;i>=0;--i){
+        while(n--){
             int count=0;
-            bitset<32> bs(nums[i]);
+            bitset<32> bs(nums[n]);
             trienode* cp;
             cp=(bs[31])?root->one:root->zero;
-            for(int j=30;j>=0;--j){
+            for(int i=30;i>=0;--i){
                 cp->count++;
-                if(!bs[j]){
+                if(!bs[i]){
                     if(!cp->zero)
                         cp->zero=new trienode();
                     cp=cp->zero;
@@ -51,8 +51,17 @@ public:
                 }
             }
             cp->count++;
-            nums[i]=(!bs[31])?count+root->one->count:count;
+            nums[n]=(!bs[31])?count+root->one->count:count;
         }
+        del(root);
         return nums;
+    }
+private:
+    void del(trienode* root) {
+        if(!root)
+            return;
+        del(root->zero);
+        del(root->one);
+        delete(root);
     }
 };
