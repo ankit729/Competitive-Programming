@@ -45,6 +45,36 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
@@ -59,16 +89,24 @@ private:
         int mid=l+((r-l)>>1);
         return mergeTwoLists(merge(lists,l,mid),merge(lists,mid+1,r));
     }
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        if(!l1)
-            return l2;
-        if(!l2)
-            return l1;
-        if(l1->val<=l2->val){
-            l1->next=mergeTwoLists(l1->next,l2);
-            return l1;
+    ListNode* mergeTwoLists(ListNode* l, ListNode* r) {
+        ListNode dummy;
+        ListNode* prev=&dummy;
+        while(l && r){
+            if(l->val<r->val){
+                prev->next=l;
+                l=l->next;
+            }
+            else{
+                prev->next=r;
+                r=r->next;
+            }
+            prev=prev->next;
         }
-        l2->next=mergeTwoLists(l1,l2->next);
-        return l2;
+        if(l)
+            prev->next=l;
+        else
+            prev->next=r;
+        return dummy.next;
     }
 };
