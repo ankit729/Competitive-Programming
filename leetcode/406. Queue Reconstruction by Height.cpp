@@ -31,27 +31,36 @@
 
 class BIT {
     vector<int> c;
-    int n;
+    int n,mask;
 public:
     BIT(int n) {
         this->n=n;
+        mask=(1<<(31-__builtin_clz(n)));
         c=vector<int>(n+1,0);
+        for(int i=0;i<n;++i)
+            update(i,1);
     }
     void update(int x, int v) {
         for(++x;x<=n;x+=(x&-x))
             c[x]+=v;
     }
-    int getSum(int x) {
-        int ans=0;
-        for(++x;x>0;x-=(x&-x))
-            ans+=c[x];
+    int getAndRemoveI(int x) {
+        x++;
+        int ans=0,temp=mask;
+        while(temp){
+            int ti=ans+temp;
+            temp>>=1;
+            if(ti<n && x>c[ti])
+                x-=c[ans=ti];
+        }
+        update(ans,-1);
         return ans;
     }
 };
 
 class Solution {
 public:
-    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+    vector<vector<int>> reconstructQueue(vector<vector<int>> people) {
         int n=people.size();
         vector<vector<int>> ans(n);
         sort(people.begin(),people.end(),[&](auto& a, auto& b){
@@ -60,13 +69,8 @@ public:
             return a[0]<b[0];
         });
         BIT bit(n);
-        for(auto& person:people){
-            int i=person[1]+bit.getSum(person[1]),j;
-            while(i-(j=bit.getSum(i))!=person[1])
-                i=person[1]+j;
-            ans[i]=move(person);
-            bit.update(i,1);
-        }
+        for(auto& person:people)
+            ans[bit.getAndRemoveI(person[1])]=move(person);
         return ans;
     }
 };
