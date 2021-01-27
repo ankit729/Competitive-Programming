@@ -53,20 +53,19 @@ public:
         if(num==0)
             return ans;
         ans+='.';
-        string ans2;
         unordered_map<int,int> mp;
-        int l=0;
-        while(num>0){
+        int l=ans.length();
+        while(num){
             if(mp.count(num)){
-                ans2.insert(ans2.begin()+mp[num],'(');
-                ans2+=')';
-                return ans+ans2;
+                ans.insert(ans.begin()+mp[num],'(');
+                ans+=')';
+                break;
             }
             mp[num]=l++;
             num*=10;
-            ans2+=to_string((long int) num/den);
+            ans+=to_string((long int) num/den);
             num%=den;
         }
-        return ans+ans2;
+        return ans;
     }
 };
