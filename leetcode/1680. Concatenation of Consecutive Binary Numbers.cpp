@@ -27,17 +27,13 @@
 // 1 <= n <= 10^5
 
 class Solution {
-    #define MOD 1000000007
 public:
     int concatenatedBinary(int n) {
-        int digits=1;
-        int br=2;
         long int ans=1;
+        int digits=1,MOD=1e9+7,up=2;
         for(int i=2;i<=n;++i){
-            if(i==br){
-                br<<=1;
-                digits++;
-            }
+            if(i==up)
+                digits++,up<<=1;
             ans=((ans<<digits)|i)%MOD;
         }
         return ans;
