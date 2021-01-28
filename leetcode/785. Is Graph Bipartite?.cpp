@@ -35,7 +35,8 @@ class Solution {
 public:
     bool isBipartite(vector<vector<int>>& graph) {
         int n=graph.size();
-        vector<int8_t> v(n,-1);
+        int v[n];
+        fill(v,v+n,-1);
         stack<int> st;
         for(int i=0;i<n;++i){
             if(v[i]==-1){
