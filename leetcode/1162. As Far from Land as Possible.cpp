@@ -26,31 +26,32 @@
 // grid[i][j] is 0 or 1
 
 class Solution {
-    int dir[5]={-1,0,1,0,-1};
 public:
     int maxDistance(vector<vector<int>>& grid) {
         int R=grid.size(),C=grid[0].size(),ans=0;
-        queue<pair<int,int>> q;
-        for(int r=0;r<R;++r)
+        int MAX=R+C;
+        for(int r=0;r<R;++r){
             for(int c=0;c<C;++c){
-                if(grid[r][c])
-                    q.push({r,c}),grid[r][c]=0;
-                else
-                    grid[r][c]=INT_MAX;
+                if(grid[r][c]==1)
+                    continue;
+                grid[r][c]=MAX;
+                if(r>0)
+                    grid[r][c]=min(grid[r][c],grid[r-1][c]+1);
+                if(c>0)
+                    grid[r][c]=min(grid[r][c],grid[r][c-1]+1);
             }
-        while(!q.empty()){
-            int size=q.size();
-            while(size--){
-                auto [r,c]=q.front();
-                q.pop();
-                for(int i=0;i<4;++i){
-                    int nr=r+dir[i],nc=c+dir[i+1];
-                    if(nr>=0 && nr<R && nc>=0 && nc<C && grid[nr][nc]>grid[r][c]+1)
-                        grid[nr][nc]=grid[r][c]+1,q.push({nr,nc});
-                }
-            }
-            ans++;
         }
-        return (ans==1)?-1:ans-1;
+        for(int r=R-1;r>=0;--r){
+            for(int c=C-1;c>=0;--c){
+                if(grid[r][c]==1)
+                    continue;
+                if(r+1<R)
+                    grid[r][c]=min(grid[r][c],grid[r+1][c]+1);
+                if(c+1<C)
+                    grid[r][c]=min(grid[r][c],grid[r][c+1]+1);
+                ans=max(ans,grid[r][c]);
+            }
+        }
+        return ans==MAX?-1:ans-1;
     }
 };
