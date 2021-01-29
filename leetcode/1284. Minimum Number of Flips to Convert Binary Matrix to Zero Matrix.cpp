@@ -51,8 +51,9 @@ public:
         }
         if(!bitvec)
             return ans;
-        unordered_set<int> st;
-        st.insert(bitvec);
+        bool visited[1<<(R*C)];
+        memset(visited,false,sizeof(visited));
+        visited[bitvec]=true;
         queue<int> q;
         q.push(bitvec);
         while(!q.empty()){
@@ -65,8 +66,8 @@ public:
                         int temp=flip(bitvec,R,C,r,c);
                         if(!temp)
                             return ans+1;
-                        if(!st.count(temp))
-                            q.push(temp),st.insert(temp);
+                        if(!visited[temp])
+                            q.push(temp),visited[temp]=true;
                     }
                 }
             }
