@@ -52,6 +52,7 @@ public:
         if(!bitvec)
             return ans;
         unordered_set<int> st;
+        st.insert(bitvec);
         queue<int> q;
         q.push(bitvec);
         while(!q.empty()){
