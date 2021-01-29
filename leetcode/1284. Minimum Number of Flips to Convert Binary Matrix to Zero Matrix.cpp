@@ -49,6 +49,8 @@ public:
                 bitvec|=mat[r][c];
             }
         }
+        if(!bitvec)
+            return ans;
         unordered_set<int> st;
         queue<int> q;
         q.push(bitvec);
@@ -57,11 +59,11 @@ public:
             while(size--){
                 bitvec=q.front();
                 q.pop();
-                if(!bitvec)
-                    return ans;
                 for(int r=0;r<R;++r){
                     for(int c=0;c<C;++c){
                         int temp=flip(bitvec,R,C,r,c);
+                        if(!temp)
+                            return ans+1;
                         if(!st.count(temp))
                             q.push(temp),st.insert(temp);
                     }
