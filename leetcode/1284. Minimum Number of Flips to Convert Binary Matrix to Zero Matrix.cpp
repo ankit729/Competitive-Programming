@@ -51,24 +51,22 @@ public:
         }
         if(!bitvec)
             return ans;
-        bool visited[1<<(R*C)];
-        memset(visited,false,sizeof(visited));
-        visited[bitvec]=true;
-        queue<int> q;
-        q.push(bitvec);
+        queue<tuple<int,int,int>> q;
+        q.push({bitvec,0,0});
         while(!q.empty()){
             int size=q.size();
             while(size--){
-                bitvec=q.front();
+                auto [bitvec,r,c]=q.front();
                 q.pop();
-                for(int r=0;r<R;++r){
-                    for(int c=0;c<C;++c){
-                        int temp=flip(bitvec,R,C,r,c);
-                        if(!temp)
-                            return ans+1;
-                        if(!visited[temp])
-                            q.push(temp),visited[temp]=true;
-                    }
+                while(r<R){
+                    int temp=flip(bitvec,R,C,r,c);
+                    if(!temp)
+                        return ans+1;
+                    c++;
+                    if(c==C)
+                        r++,c=0;
+                    if(r<R)
+                        q.push({temp,r,c});
                 }
             }
             ans++;
