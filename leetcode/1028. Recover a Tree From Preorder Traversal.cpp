@@ -45,30 +45,27 @@ class Solution {
 public:
     TreeNode* recoverFromPreorder(string& s) {
         int i=0;
-        TreeNode* root=new TreeNode(getVal(s,i));
-        stack<pair<TreeNode*,int>> st;
-        st.push({root,0});
+        stack<TreeNode*> st;
         while(s[i]){
             int depth=getDepth(s,i),val=getVal(s,i);
-            while(!st.empty() && st.top().second!=depth-1)
+            TreeNode* node=new TreeNode(val);
+            while(st.size()>depth)
                 st.pop();
-            auto [node,d]=st.top();
-            st.pop();
-            if(!node->left){
-                node->left=new TreeNode(val);
-                st.push({node,d});
-                st.push({node->left,depth});
+            if(!st.empty()){
+                if(!st.top()->left)
+                    st.top()->left=node;
+                else
+                    st.top()->right=node;
             }
-            else{
-                node->right=new TreeNode(val);
-                st.push({node->right,depth});
-            }
+            st.push(node);
         }
-        return root;
+        while(st.size()>1)
+            st.pop();
+        return st.top();
     }
     int getVal(string& s, int& i) {
         int ans=0;
-        while(s[i] && isdigit(s[i]))
+        while(s[i] && s[i]!='-')
             ans=ans*10+s[i++]-'0';
         return ans;
     }
