@@ -33,27 +33,21 @@ class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
         int n=nums.size();
-        int i=n-2;
-        while(i>=0 && nums[i+1]<=nums[i])
-            i--;
-        if(i>=0){
-            int j=bs(nums,i+1,n-1,nums[i]);
-            swap(nums[i],nums[j]);
-        }
-        reverse(nums.begin()+i+1,nums.end());
-    }
-private:
-    int bs(vector<int>& nums, int l, int r, int x) {
-        int ans=l;
-        while(l<=r){
-            int mid=l+((r-l)>>1);
-            if(nums[mid]>x){
-                ans=mid;
-                l=mid+1;
+        int l=n-1;
+        while(l>0 && nums[l-1]>=nums[l])
+            l--;
+        l--;
+        if(l>=0){
+            int left=l+1,right=n-1,r;
+            while(left<=right){
+                int mid=left+((right-left)>>1);
+                if(nums[mid]>nums[l])
+                    left=mid+1,r=mid;
+                else
+                    right=mid-1;
             }
-            else
-                r=mid-1;
+            swap(nums[l],nums[r]);
         }
-        return ans;
+        reverse(nums.begin()+l+1,nums.end());
     }
 };
