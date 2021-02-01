@@ -36,7 +36,6 @@
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
-        int n=coins.size();
         sort(coins.begin(),coins.end());
         int dp[amount+1];
         fill(dp,dp+amount+1,amount+1);
@@ -44,10 +43,9 @@ public:
         for(auto& coin:coins){
             if(coin>amount)
                 break;
-            for(int i=0;i<coin;++i){
+            for(int i=0;i<coin;++i)
                 for(int j=i+coin;j<=amount;j+=coin)
                     dp[j]=min(dp[j],1+dp[j-coin]);
-            }
         }
         return dp[amount]==amount+1?-1:dp[amount];
     }
