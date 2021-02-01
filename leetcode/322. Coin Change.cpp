@@ -36,13 +36,12 @@
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
-        sort(coins.begin(),coins.end());
         int dp[amount+1];
         fill(dp,dp+amount+1,amount+1);
         dp[0]=0;
         for(auto& coin:coins){
             if(coin>amount)
-                break;
+                continue;
             for(int i=0;i<coin;++i)
                 for(int j=i+coin;j<=amount;j+=coin)
                     dp[j]=min(dp[j],1+dp[j-coin]);
