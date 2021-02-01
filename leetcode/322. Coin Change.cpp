@@ -39,12 +39,12 @@ public:
         int dp[amount+1];
         fill(dp,dp+amount+1,amount+1);
         dp[0]=0;
-        for(auto& coin:coins){
-            if(coin>amount)
-                continue;
-            for(int i=0;i<coin;++i)
-                for(int j=i+coin;j<=amount;j+=coin)
-                    dp[j]=min(dp[j],1+dp[j-coin]);
+        for(int i=1;i<=amount;++i){
+            for(auto& coin:coins){
+                if(coin>i)
+                    continue;
+                dp[i]=min(dp[i],1+dp[i-coin]);
+            }
         }
         return dp[amount]==amount+1?-1:dp[amount];
     }
