@@ -50,12 +50,12 @@ public:
     }
 private:
     void helper(vector<int>& nums, int& n, int i, vector<vector<int>>& ans, vector<int>& combo, int target) {
-        if(i==n || target<0)
-            return;
         if(target==0){
             ans.push_back(combo);
             return;
         }
+        if(i==n || target<0)
+            return;
         helper(nums,n,i+1,ans,combo,target);
         combo.push_back(nums[i]);
         helper(nums,n,i,ans,combo,target-nums[i]);
