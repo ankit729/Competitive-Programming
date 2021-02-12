@@ -54,9 +54,11 @@ class Solution {
 public:
     Node* connect(Node* root) {
         Node* head=root;
+        Node dummy(0);
+        Node* temp;
         while(head){
-            Node dummy(0);
-            Node* temp=&dummy;
+            temp=&dummy;
+            temp->next=NULL;
             while(head){
                 if(head->left){
                     temp->next=head->left;
