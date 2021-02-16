@@ -32,10 +32,9 @@ public:
     vector<string> letterCasePermutation(string& s) {
         vector<int> pos;
         int c=0;
-        for(int i=0;s[i];++i){
+        for(int i=0;s[i];++i)
             if(isalpha(s[i]))
                 c++,pos.push_back(i),s[i]=tolower(s[i]);
-        }
         int n=(1<<c);
         vector<string> ans(n,s);
         for(int i=0,step=1;i<c;++i,step<<=1)
