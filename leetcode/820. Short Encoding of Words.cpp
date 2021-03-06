@@ -31,13 +31,13 @@
 
 class Solution {
 public:
-    int minimumLengthEncoding(vector<string> words) {
+    int minimumLengthEncoding(vector<string>& words) {
         int n=words.size(),ans=0;
         for(auto& s:words)
             reverse(s.begin(),s.end());
         sort(words.begin(),words.end());
         for(int i=0;i<n-1;++i)
-            if(words[i].length()>words[i+1].length() || words[i]!=words[i+1].substr(0,words[i].length()))
+            if(words[i].length()>words[i+1].length() || words[i+1].compare(0,words[i].length(),words[i])!=0)
                 ans+=words[i].length()+1;
         return ans+words.back().length()+1;
     }
