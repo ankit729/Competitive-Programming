@@ -24,9 +24,10 @@ class Solution {
 public:
     vector<int> advantageCount(vector<int>& A, vector<int>& B) {
         int n=A.size();
-        vector<int> ans(n),index(n);
-        iota(index.begin(),index.end(),0);
-        sort(index.begin(),index.end(),[&B](auto& a, auto& b) {
+        vector<int> ans(n);
+        int index[n];
+        iota(index,index+n,0);
+        sort(index,index+n,[&B](auto& a, auto& b) {
             return B[a]<=B[b];
         });
         sort(A.begin(),A.end());
