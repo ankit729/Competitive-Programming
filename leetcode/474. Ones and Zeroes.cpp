@@ -30,30 +30,28 @@
 class Solution {
 public:
     int findMaxForm(vector<string>& strs, int M, int N) {
-        size_t n=strs.size();
+        int n=strs.size(),ans=0;
         pair<int,int> c[n];
         for(int i=0;i<n;++i){
             int zeroes=count(strs[i].begin(),strs[i].end(),'0');
             c[i]={zeroes,strs[i].size()-zeroes};
         }
-        int ans=0;
-        sort(c,c+n,[&](pair<int,int> a, pair<int,int> b){return a.first<b.first;});
-        ans=max(ans,solve(c,n,M,N));
-        sort(c,c+n,[&](pair<int,int> a, pair<int,int> b){return a.second<b.second;});
-        ans=max(ans,solve(c,n,M,N));
-        sort(c,c+n,[&](pair<int,int> a, pair<int,int> b){
-            if(a.first+a.second==b.first+b.second){
-                if(M<=N)
-                    return a.first<b.first;
-                return a.second<b.second;
-            }
-            return a.first+a.second<b.first+b.second;
+        sort(c,c+n);
+        ans=max(ans,helper(c,n,M,N));
+        sort(c,c+n,[](auto& a, auto& b){return a.second<b.second;});
+        ans=max(ans,helper(c,n,M,N));
+        sort(c,c+n,[&M,&N](auto& a, auto& b){
+            if(a.first+a.second!=b.first+b.second)
+                return a.first+a.second<b.first+b.second;
+            if(M<=N)
+                return a.first<b.first;
+            return a.second<b.second;
         });
-        ans=max(ans,solve(c,n,M,N));
+        ans=max(ans,helper(c,n,M,N));
         return ans;
     }
 private:
-    int solve(pair<int,int>* c, const size_t n, int M, int N) {
+    int helper(pair<int,int>* c, int n, int M, int N) {
         int ans=0;
         for(int i=0;i<n;++i){
             if(M>=c[i].first && N>=c[i].second){
