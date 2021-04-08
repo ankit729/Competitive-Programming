@@ -29,19 +29,24 @@ class Solution {
 public:
     vector<string> letterCombinations(string& digits) {
         if(digits.empty())
-            return vector<string>();
-        vector<string> letters={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        bool flag=true;
-        vector<string> ans[2];
-        ans[!flag]={""};
-        for(auto& x:digits){
-            int num=x-'2';
-            for(auto& s:ans[!flag])
-                for(auto& ch:letters[num])
-                    ans[flag].push_back(s+ch);
-            flag=!flag;
-            ans[flag].clear();
+            return {};
+        vector<string> ans;
+        string a[]={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        queue<string> q;
+        q.push("");
+        for(auto& ch:digits){
+            int size=q.size();
+            while(size--){
+                string s=q.front();
+                q.pop();
+                for(auto& ch2:a[ch-'2'])
+                    q.push(s+ch2);
+            }
         }
-        return ans[!flag];
+        while(!q.empty()){
+            ans.push_back(move(q.front()));
+            q.pop();
+        }
+        return ans;
     }
 };
