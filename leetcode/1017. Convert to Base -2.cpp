@@ -27,18 +27,18 @@
 
 class Solution {
 public:
-    string baseNeg2(int N) {
-        if(N==0)
+    string baseNeg2(int n) {
+        if(n==0)
             return "0";
         string ans="";
-        while(N!=0){
-            if(N%-2==0)
-                ans+='0';
-            else{
-                ans+='1';
-                N--;
+        while(n!=0){
+            int rem=n%-2;
+            n/=-2;
+            if(rem<0){
+                rem-=-2;
+                n++;
             }
-            N/=-2;
+            ans+='0'+rem;
         }
         reverse(ans.begin(),ans.end());
         return ans;
