@@ -40,15 +40,11 @@ public:
         n>>=1;
         vector<TreeNode*> a[n+1];
         a[0].push_back(new TreeNode(0));
-        for(int i=1;i<=n;++i){
-            for(int l=0,r=i-1;l<i;++l,--r){
-                for(auto& left:a[l]){
-                    for(auto& right:a[r]){
+        for(int i=1;i<=n;++i)
+            for(int l=0,r=i-1;l<i;++l,--r)
+                for(auto& left:a[l])
+                    for(auto& right:a[r])
                         a[i].push_back(new TreeNode(0,left,right));
-                    }
-                }
-            }
-        }
         return a[n];
     }
 };
