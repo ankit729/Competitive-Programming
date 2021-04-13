@@ -58,22 +58,22 @@ public:
 private:
     int ans=0,distance;
     vector<int> helper(TreeNode* root, int depth) {
-        vector<int> ret;
+        vector<int> ans;
         if(!root)
-            return ret;
+            return ans;
         if(!root->left && !root->right){
-            ret.push_back(depth);
-            return ret;
+            ans.push_back(depth);
+            return ans;
         }
         vector<int> left=helper(root->left,depth+1),right=helper(root->right,depth+1);
         int nl=left.size(),nr=right.size();
         for(int l=0,r=nr-1;l<nl && r>=0;++l){
             while(r>=0 && left[l]-depth+right[r]-depth>distance)
                 r--;
-            ans+=r+1;
+            this->ans+=r+1;
         }
-        ret.resize(nl+nr);
-        merge(left.begin(),left.end(),right.begin(),right.end(),ret.begin());
-        return ret;
+        ans.resize(nl+nr);
+        merge(left.begin(),left.end(),right.begin(),right.end(),ans.begin());
+        return ans;
     }
 };
