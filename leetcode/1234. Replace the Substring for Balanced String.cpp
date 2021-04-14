@@ -49,7 +49,7 @@ public:
                 mp[s[r++]]--;
             if(all_of(mp.begin(),mp.end(),[&target](auto& a){return a.second<=target;}))
                 ans=min(ans,r-l);
-            else if(r==n)
+            else
                 break;
             mp[s[l]]++;
         }
