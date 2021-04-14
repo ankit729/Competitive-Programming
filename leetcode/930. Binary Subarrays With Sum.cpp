@@ -24,14 +24,14 @@ class Solution {
 public:
     int numSubarraysWithSum(vector<int>& A, int S) {
         int n=A.size(),ans=0;
-        for(int l=0,sl=0,r=0,sr=0,i=0;i<n;++i){
-            sl+=A[i];
-            while(l<i && sl>S)
-                sl-=A[l++];
-            sr+=A[i];
-            while(r<i && (sr>S || (sr==S && A[r]==0)))
-                sr-=A[r++];
-            if(sl==S)
+        for(int i=0,l=0,r=0;i<n;++i){
+            S-=A[i];
+            while(l<i && S<0)
+                S+=A[l++];
+            r=max(r,l);
+            while(r<i && A[r]==0)
+                r++;
+            if(S==0)
                 ans+=r-l+1;
         }
         return ans;
