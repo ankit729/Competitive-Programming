@@ -36,22 +36,38 @@
 // s.length is a multiple of 4
 // s contains only 'Q', 'W', 'E' and 'R'.
 
+class freq {
+public:
+    int Q=0,W=0,E=0,R=0;
+    freq() {
+        
+    }
+    void update(char ch, int val) {
+        switch(ch){
+            case 'Q':Q+=val;break;
+            case 'W':W+=val;break;
+            case 'E':E+=val;break;
+            case 'R':R+=val;break;
+        }
+    }
+};
+
 class Solution {
 public:
     int balancedString(string s) {
         int n=s.length(),ans=n;
         int target=(n>>2);
-        unordered_map<char,int> mp;
+        freq a;
         for(auto& ch:s)
-            mp[ch]++;
+            a.update(ch,1);
         for(int l=0,r=0;l<n;++l){
-            while(r<n && any_of(mp.begin(),mp.end(),[&target](auto& a){return a.second>target;}))
-                mp[s[r++]]--;
-            if(all_of(mp.begin(),mp.end(),[&target](auto& a){return a.second<=target;}))
+            while(r<n && (a.Q>target || a.W>target || a.E>target || a.R>target))
+                a.update(s[r++],-1);
+            if(a.Q<=target && a.W<=target && a.E<=target && a.R<=target)
                 ans=min(ans,r-l);
             else
                 break;
-            mp[s[l]]++;
+            a.update(s[l],1);
         }
         return ans;
     }
