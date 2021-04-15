@@ -43,7 +43,7 @@ public:
                 for(int r=0,curr=0;r<R;++r){
                     temp[r]+=A[r][cr];
                     curr+=temp[r];
-                    if(mp.find(curr-target)!=mp.end())
+                    if(mp.count(curr-target))
                         ans+=mp[curr-target];
                     mp[curr]++;
                 }
