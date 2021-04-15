@@ -39,7 +39,8 @@ public:
             int temp[R];
             memset(temp,0,sizeof(temp));
             for(int cr=cl;cr<C;++cr){
-                mp={{0,1}};
+                mp.clear();
+                mp[0]++;
                 for(int r=0,curr=0;r<R;++r){
                     temp[r]+=A[r][cr];
                     curr+=temp[r];
