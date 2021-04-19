@@ -37,7 +37,7 @@
 class Solution {
 public:
     int combinationSum4(vector<int>& nums, int target) {
-        int n=nums.size(),ans=0;
+        int n=nums.size();
         int dp[target+1];
         fill(dp,dp+target+1,-1);
         dp[0]=1;
