@@ -11,16 +11,11 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int l=0,lMax=0,r=(int)height.size()-1,rMax=0,ans=0;
-        while(l<r){
-            if(lMax<height[l])
-                lMax=height[l];
-            if(rMax<height[r])
-                rMax=height[r];
-            if(lMax<rMax)
-                ans+=lMax-height[l++];
-            else
-                ans+=rMax-height[r--];
+        int ans=0;
+        for(int l=0,lMax=0,r=height.size()-1,rMax=0;l<r;){
+            lMax=max(lMax,height[l]);
+            rMax=max(rMax,height[r]);
+            ans+=(lMax<rMax)?lMax-height[l++]:rMax-height[r--];
         }
         return ans;
     }
