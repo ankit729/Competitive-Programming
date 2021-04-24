@@ -4,7 +4,7 @@ public:
         v=V;
         adj=new vector<int>[v];
     }
-    void addEdge(int u,int v) {
+    void addEdge(int u, int v) {
         adj[u].emplace_back(v);
         adj[v].emplace_back(u);
     }
