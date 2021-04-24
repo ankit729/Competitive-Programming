@@ -1,8 +1,8 @@
 class graphU {
 public:
     graphU(int V) {
-        v=V;
-        adj.resize(v);
+        this->V=V;
+        adj.resize(V);
     }
     void addEdge(int u, int v) {
         adj[u].emplace_back(v);
@@ -16,7 +16,7 @@ public:
         return false;
     }
 private:
-    int v;
+    int V;
     vector<vector<int>> adj;
     bool isCyclicUtil(int& u, vector<bool>& visited, int parent) {
         visited[u]=true;
