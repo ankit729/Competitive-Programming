@@ -40,18 +40,14 @@
 class Solution {
 public:
     int maxDistToClosest(vector<int>& seats) {
-        int n=seats.size();
-        int ans,last=0;
-        while(!seats[last])
-            last++;
-        ans=last;
-        for(int i=last+1;i<n;++i){
-            if(seats[i]){
-                ans=max(ans,(i-last)>>1);
-                last=i;
+        int n=seats.size(),ans=0;
+        int prev=-1;
+        for(int i=0;i<n;++i){
+            if(seats[i]==1){
+                ans=max(ans,(prev==-1)?i:(i-prev)>>1);
+                prev=i;
             }
         }
-        ans=max(ans,n-1-last);
-        return ans;
+        return max(ans,n-1-prev);
     }
 };
