@@ -49,7 +49,7 @@
 class Solution {
 public:
     TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
-        TreeNode* ans;
+        TreeNode* ans=NULL;
         stack<TreeNode*> st;
         for(auto& x:nums){
             TreeNode* curr=new TreeNode(x);
