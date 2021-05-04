@@ -49,12 +49,11 @@ class Solution {
 public:
     string stoneGameIII(vector<int>& stone) {
         int n=stone.size();
-        int dp[n+3];
-        dp[n]=dp[n+1]=dp[n+2]=0;
+        int dp[3]={};
         for(int i=n-2;i>=0;--i)
             stone[i]+=stone[i+1];
         for(int i=n-1;i>=0;--i)
-            dp[i]=stone[i]-min({dp[i+1],dp[i+2],dp[i+3]});
+            dp[i%3]=stone[i]-min({dp[(i+1)%3],dp[(i+2)%3],dp[(i+3)%3]});
         dp[0]*=2;
         return (dp[0]==stone[0])?"Tie":(dp[0]>stone[0])?"Alice":"Bob";
     }
