@@ -30,17 +30,17 @@ class Solution {
 public:
     int stoneGameII(vector<int>& piles) {
         int n=piles.size();
-        int dp[n][n+1];
+        int dp[n][n+1],sum[n];
         memset(dp,0,sizeof(dp));
-        for(int i=n-2;i>=0;--i)
-            piles[i]+=piles[i+1];
+        for(int i=n-1,prev=0;i>=0;--i)
+            prev=sum[i]=piles[i]+prev;
         for(int i=n-1;i>=0;--i)
             for(int m=((n-i+1)>>1);m<=n;++m)
-                dp[i][m]=piles[i];
+                dp[i][m]=sum[i];
         for(int i=n-1;i>=0;--i)
             for(int m=((n-i+1)>>1)-1;m>0;--m)
                 for(int x=(m<<1);x>0;--x)
-                    dp[i][m]=max(dp[i][m],piles[i]-dp[i+x][max(x,m)]);
+                    dp[i][m]=max(dp[i][m],sum[i]-dp[i+x][max(x,m)]);
         return dp[0][1];
     }
 };
