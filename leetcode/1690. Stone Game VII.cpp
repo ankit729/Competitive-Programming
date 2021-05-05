@@ -33,17 +33,18 @@
 
 class Solution {
 public:
-    int stoneGameVII(vector<int> stones) {
+    int stoneGameVII(vector<int>& stones) {
         int n=stones.size();
         int dp[n][n];
-        stones.push_back(0);
-        for(int i=n-2;i>=0;--i)
-            stones[i]+=stones[i+1];
+        int sum[n+1];
+        sum[n]=0;
+        for(int i=n-1;i>=0;--i)
+            sum[i]=sum[i+1]+stones[i];
         for(int i=0;i<n;++i)
             dp[i][i]=0;
         for(int len=2;len<=n;++len)
             for(int l=0,r=len-1;r<n;++l,++r)
-                dp[l][r]=max(stones[l+1]-stones[r+1]-dp[l+1][r],stones[l]-stones[r]-dp[l][r-1]);
+                dp[l][r]=max(sum[l+1]-sum[r+1]-dp[l+1][r],sum[l]-sum[r]-dp[l][r-1]);
         return dp[0][n-1];
     }
 };
