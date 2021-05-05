@@ -21,23 +21,22 @@
 
 // Constraints:
 
-// 1 <= nums.length <= 3 * 10^4
+// 1 <= nums.length <= 1000
 // 0 <= nums[i] <= 10^5
 
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        int n=nums.size(),start=0,end=0,jump=0;
-        while(end<n-1){
-            int stop=end;
-            for(int i=start;i<=stop;++i){
-                if(i+nums[i]>=n-1)
-                    return jump+1;
-                end=max(end,i+nums[i]);
+        int n=nums.size(),ans=0;
+        for(int i=0,M=0,M2=0;i<n && M<n-1;++i){
+            M2=max(M2,i+nums[i]);
+            if(M2>=n-1)
+                return ans+1;
+            if(i==M){
+                ans++,M=M2;
+                M2=i;
             }
-            start=stop+1;
-            ++jump;
         }
-        return jump;
+        return ans;
     }
 };
