@@ -46,14 +46,14 @@
 
 class Solution {
 public:
-    int stoneGameVI(vector<int> A, vector<int>& B) {
+    int stoneGameVI(vector<int>& A, vector<int>& B) {
         int n=A.size();
-        int d=0;
+        int C[n],d=0;
         for(int i=0;i<n;++i)
-            A[i]+=B[i],d-=B[i];
-        sort(A.begin(),A.end());
+            C[i]=A[i]+B[i],d-=B[i];
+        sort(C,C+n);
         for(int i=n-1;i>=0;i-=2)
-            d+=A[i];
+            d+=C[i];
         return d==0?0:d>0?1:-1;
     }
 };
