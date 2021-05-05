@@ -35,8 +35,7 @@ class Solution {
 public:
     int stoneGameVII(vector<int>& stones) {
         int n=stones.size();
-        int dp[n][n];
-        int sum[n+1];
+        int dp[n][n],sum[n+1];
         sum[n]=0;
         for(int i=n-1;i>=0;--i)
             sum[i]=sum[i+1]+stones[i];
