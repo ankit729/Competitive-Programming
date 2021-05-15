@@ -1,28 +1,21 @@
-// Validate if a given string can be interpreted as a decimal number.
+// A valid number can be split up into these components (in order):
 
-// Some examples:
-// "0" => true
-// " 0.1 " => true
-// "abc" => false
-// "1 a" => false
-// "2e10" => true
-// " -90e3   " => true
-// " 1e" => false
-// "e3" => false
-// " 6e-1" => true
-// " 99e2.5 " => false
-// "53.5e93" => true
-// " --6 " => false
-// "-+3" => false
-// "95a54e53" => false
+// A decimal number or an integer.
+// (Optional) An 'e' or 'E', followed by an integer.
+// A decimal number can be split up into these components (in order):
 
-// Note: It is intended for the problem statement to be ambiguous. It would be best if you gathered all requirements up front before implementing one. However, here is a list of characters that can be in a valid decimal number:
+// (Optional) A sign character (either '+' or '-').
+// One of the following formats:
+// At least one digit, followed by a dot '.'.
+// At least one digit, followed by a dot '.', followed by at least one digit.
+// A dot '.', followed by at least one digit.
+// An integer can be split up into these components (in order):
 
-// Numbers 0-9
-// Exponent - "e"
-// Positive/negative sign - "+"/"-"
-// Decimal point - "."
-// Of course, the context of these characters also matters in the input.
+// (Optional) A sign character (either '+' or '-').
+// At least one digit.
+// For example, all the following are valid numbers: ["2", "0089", "-0.1", "+3.14", "4.", "-.9", "2e10", "-90E3", "3e+7", "+6e-1", "53.5e93", "-123.456e789"], while the following are not valid numbers: ["abc", "1a", "1e", "e3", "99e2.5", "--6", "-+3", "95a54e53"].
+
+// Given a string s, return true if s is a valid number.
 
  
 
@@ -32,60 +25,62 @@
 // Output: true
 // Example 2:
 
-// Input: s = "3"
+// Input: s = "e"
+// Output: false
+// Example 3:
+
+// Input: s = "."
+// Output: false
+// Example 4:
+
+// Input: s = ".1"
 // Output: true
  
 
 // Constraints:
 
 // 1 <= s.length <= 20
-// s consists of only English letters, digits, space ' ', plus '+', minus '-', or dot '.'.
+// s consists of only English letters (both uppercase and lowercase), digits (0-9), plus '+', minus '-', or dot '.'.
 
 class Solution {
 public:
     bool isNumber(string s) {
         int state=0;
-        int l=0,r=s.length()-1;
-        while(l<r && s[l]==' ')
-            l++;
-        while(r>l && s[r]==' ')
-            r--;
-        for(int i=l;i<=r;i++){
-            char x=s[i];
+        for(auto& ch:s){
             switch(state){
-                case 0: if(x=='+' || x=='-') state=1;
-                    else if(isdigit(x)) state=2;
-                    else if(x=='.') state=4;
+                case 0: if(ch=='+' || ch=='-') state=1;
+                    else if(isdigit(ch)) state=2;
+                    else if(ch=='.') state=4;
                     else return false;
                     break;
-                case 1: if(isdigit(x)) state=2;
-                    else if(x=='.') state=4;
+                case 1: if(isdigit(ch)) state=2;
+                    else if(ch=='.') state=4;
                     else return false;
                     break;
-                case 2: if(isdigit(x));
-                    else if(x=='.') state=3;
-                    else if(x=='e') state=6;
+                case 2: if(isdigit(ch));
+                    else if(ch=='.') state=3;
+                    else if(ch=='e' || ch=='E') state=6;
                     else return false;
                     break;
-                case 3: if(isdigit(x)) state=5;
-                    else if(x=='e') state=6;
+                case 3: if(isdigit(ch)) state=5;
+                    else if(ch=='e' || ch=='E') state=6;
                     else return false;
                     break;
-                case 4: if(isdigit(x)) state=5;
+                case 4: if(isdigit(ch)) state=5;
                     else return false;
                     break;
-                case 5: if(isdigit(x));
-                    else if(x=='e') state=6;
+                case 5: if(isdigit(ch));
+                    else if(ch=='e' || ch=='E') state=6;
                     else return false;
                     break;
-                case 6: if(x=='+' || x=='-') state=7;
-                    else if(isdigit(x)) state=8;
+                case 6: if(ch=='+' || ch=='-') state=7;
+                    else if(isdigit(ch)) state=8;
                     else return false;
                     break;
-                case 7: if(isdigit(x)) state=8;
+                case 7: if(isdigit(ch)) state=8;
                     else return false;
                     break;
-                case 8: if(isdigit(x));
+                case 8: if(isdigit(ch));
                     else return false;
                     break;
             }
