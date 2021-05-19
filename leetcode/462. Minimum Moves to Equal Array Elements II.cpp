@@ -26,17 +26,11 @@
 class Solution {
 public:
     int minMoves2(vector<int>& nums) {
-        int n=nums.size();
-        sort(nums.begin(),nums.end());
-        long int change[n];
-        for(long int i=0,sum=0;i<n;++i){
-            change[i]=nums[i]*i-sum;
-            sum+=nums[i];
-        }
-        for(long int i=n-1,sum=0;i>=0;--i){
-            change[i]+=sum-nums[i]*(n-i-1);
-            sum+=nums[i];
-        }
-        return *min_element(change,change+n);
+        int n=nums.size(),ans=0;
+        auto it=nums.begin()+(n>>1);
+        nth_element(nums.begin(),it,nums.end());
+        for(auto& x:nums)
+            ans+=abs(x-*it);
+        return ans;
     }
 };
