@@ -34,12 +34,12 @@ private:
         if(!mp[n].empty())
             return mp[n];
         int odd=((n+1)>>1);
-        vector<int> left=helper(odd),right=helper(n-odd);
+        vector<int> left=move(helper(odd)),right=move(helper(n-odd));
         for(auto& x:left)
             x=((x<<1)-1);
         for(auto& x:right)
             x<<=1;
-        left.insert(left.end(),right.begin(),right.end());
+        move(right.begin(),right.end(),back_inserter(left));
         return mp[n]=move(left);
     }
 };
