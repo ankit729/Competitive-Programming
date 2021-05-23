@@ -1,8 +1,8 @@
 // Given two strings s and t, return the number of distinct subsequences of s which equals t.
 
-// A string's subsequence is a new string formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ACE" is a subsequence of "ABCDE" while "AEC" is not).
+// A string's subsequence is a new string formed from the original string by deleting some (can be none) of the characters without disturbing the remaining characters' relative positions. (i.e., "ACE" is a subsequence of "ABCDE" while "AEC" is not).
 
-// It's guaranteed the answer fits on a 32-bit signed integer.
+// It is guaranteed the answer fits on a 32-bit signed integer.
 
  
 
@@ -30,34 +30,26 @@
 
 // Constraints:
 
-// 0 <= s.length, t.length <= 1000
+// 1 <= s.length, t.length <= 1000
 // s and t consist of English letters.
 
 class Solution {
 public:
-    int dp[1000][1000];
-    string s,t;
-    int sn,tn;
-    int numDistinct(string S, string T) {
-        s=S;
-        t=T;
-        sn=s.size();
-        tn=t.size();
-        memset(dp,-1,sizeof(dp));
-        return solve(0,0);
-    }
-private:
-    int solve(int si, int ti){
-        if(ti==tn)
-            return 1;
-        if(si==sn)
-            return 0;
-        if(dp[si][ti]>=0)
-            return dp[si][ti];
-        int ans=0;
-        if(s[si]==t[ti])
-            ans=solve(si+1,ti+1);
-        ans+=solve(si+1,ti);
-        return dp[si][ti]=ans;
+    int numDistinct(string s, string t) {
+        int ns=s.length(),nt=t.length();
+        if(ns<=nt)
+            return s==t;
+        unsigned int dp[nt+1];
+        fill(dp,dp+nt,0);
+        dp[nt]=1;
+        for(int is=ns-1;is>=0;--is){
+            for(int it=min(nt-1,is),prev=dp[it+1];it>=0;--it){
+                int temp=dp[it];
+                if(s[is]==t[it])
+                    dp[it]+=prev;
+                prev=temp;
+            }
+        }
+        return dp[0];
     }
 };
