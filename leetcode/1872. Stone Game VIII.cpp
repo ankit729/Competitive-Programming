@@ -50,13 +50,12 @@
 class Solution {
 public:
     int stoneGameVIII(vector<int>& st) {
-        int n=st.size(),ans=INT_MIN;
-        for(int i=1;i<n;++i)
-            st[i]+=st[i-1];
-        int m=st.back();
-        for(int i=n-2;i>=0;--i){
-            ans=max(ans,m);
-            m=max(m,st[i]-m);
+        int n=st.size(),ans;
+        int sum=accumulate(st.begin(),st.end(),0);
+        ans=sum;
+        for(int i=n-2;i>0;--i){
+            sum-=st[i+1];
+            ans=max(ans,sum-ans);
         }
         return ans;
     }
