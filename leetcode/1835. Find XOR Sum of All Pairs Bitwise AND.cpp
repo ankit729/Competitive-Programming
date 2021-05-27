@@ -39,17 +39,13 @@ public:
                 x>>=1;
             }
         }
-        bool count2[32]={};
         for(auto x:arr1){
             for(int i=0;x>0;++i){
                 if((x&1) && count[i])
-                    count2[i]=!count2[i];
+                    ans^=1<<i;
                 x>>=1;
             }
         }
-        for(int i=0;i<32;++i)
-            if(count2[i])
-                ans|=(1<<i);
         return ans;
     }
 };
