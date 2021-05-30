@@ -31,21 +31,15 @@
 // 0 <= nums1[i], nums2[i] <= 10^7
 
 class Solution {
+    int dp[16384]={[0 ... 16383]=INT_MAX};
 public:
-    int minimumXORSum(vector<int>& nums1, vector<int>& nums2) {
-        int n=nums1.size();
-        dp.assign(1<<n,INT_MAX);
-        return helper(nums1,nums2,0,0);
-    }
-private:
-    vector<int> dp;
-    int helper(vector<int>& a, vector<int>& b, int i, int mask) {
-        if(i>=a.size())
+    int minimumXORSum(vector<int>& nums1, vector<int>& nums2, int i=0, int mask=0) {
+        if(i>=nums1.size())
             return 0;
         if(dp[mask]==INT_MAX)
-            for(int j=0;j<b.size();++j)
+            for(int j=0;j<nums2.size();++j)
                 if(!(mask&(1<<j)))
-                    dp[mask]=min(dp[mask],(a[i]^b[j])+helper(a,b,i+1,mask|(1<<j)));
+                    dp[mask]=min(dp[mask],(nums1[i]^nums2[j])+minimumXORSum(nums1,nums2,i+1,mask|(1<<j)));
         return dp[mask];
     }
 };
