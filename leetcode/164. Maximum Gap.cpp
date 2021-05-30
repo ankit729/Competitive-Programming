@@ -31,7 +31,9 @@ public:
         for(auto& x:nums)
             m=min(m,x),M=max(M,x);
         int gap=ceil((double) (M-m)/(n-1));
-        vector<int> bmin(n-1,INT_MAX),bmax(n-1,INT_MIN);
+        int bmin[n-1],bmax[n-1];
+        fill(bmin,bmin+(n-1),INT_MAX);
+        fill(bmax,bmax+(n-1),INT_MIN);
         for(auto& x:nums){
             if(x==m || x==M)
                 continue;
