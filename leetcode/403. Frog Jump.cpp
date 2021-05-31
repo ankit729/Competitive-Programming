@@ -32,20 +32,17 @@ public:
         memset(dp,false,sizeof(dp));
         dp[0][1]=true;
         for(int i=1,M=1;i<n;++i){
-            for(int j=i-1;j>=0 && stones[i]-stones[j]<=M;--j){
+            int temp=M;
+            for(int j=i-1;j>=0 && stones[i]-stones[j]<=temp;--j){
                 int jump=stones[i]-stones[j];
                 if(dp[j][jump]){
                     if(jump>1)
                         dp[i][jump-1]=true;
-                    dp[i][jump]=true;
-                    dp[i][jump+1]=true;
+                    dp[i][jump]=dp[i][jump+1]=true;
                     M=max(M,jump+1);
                 }
             }
         }
-        for(int i=1;i<=n;++i)
-            if(dp[n-1][i])
-                return true;
-        return false;
+        return find(dp[n-1],dp[n-1]+n+1,true)!=dp[n-1]+n+1;
     }
 };
