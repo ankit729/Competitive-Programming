@@ -31,10 +31,10 @@ public:
         int R=grid.size(),C=grid[0].size(),ans=0;
         vector<vector<bool>> visited(R,vector<bool>(C));
         int dir[5]={-1,0,1,0,-1};
+        stack<pair<int,int>> stk;
         for(int r=0;r<R;++r){
             for(int c=0;c<C;++c){
                 if(grid[r][c]==1 && !visited[r][c]){
-                    stack<pair<int,int>> stk;
                     stk.push({r,c});
                     visited[r][c]=true;
                     int temp=0;
