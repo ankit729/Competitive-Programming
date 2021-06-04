@@ -65,21 +65,21 @@ public:
                 string s=get(num);
                 int sn;
                 for(int i=0;i<4;++i){
-                    s[i]=((s[i]+1-'0')%10)+'0';
+                    s[i]=s[i]=='9'?'0':s[i]+1;
                     sn=stoi(s);
                     if(q[back].count(sn))
                         return ans+1;
                     if(!dead.count(sn) && !visited[sn])
                         q[temp].insert(sn),visited[sn]=true;
                     
-                    s[i]=((s[i]+8-'0')%10)+'0';
+                    s[i]=s[i]<'2'?s[i]+8:s[i]-2;
                     sn=stoi(s);
                     if(q[back].count(sn))
                         return ans+1;
                     if(!dead.count(sn) && !visited[sn])
                         q[temp].insert(sn),visited[sn]=true;
                     
-                    s[i]=((s[i]+1-'0')%10)+'0';
+                    s[i]=s[i]=='9'?'0':s[i]+1;
                 }
             }
             q[front].clear();
