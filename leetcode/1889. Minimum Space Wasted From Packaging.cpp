@@ -45,7 +45,6 @@ const int MOD=1e9+7;
 class Solution {
 public:
     int minWastedSpace(vector<int>& packages, vector<vector<int>>& boxes) {
-        int n=packages.size();
         li ans=LONG_MAX;
         sort(packages.begin(),packages.end());
         for(auto& supplier:boxes){
@@ -53,12 +52,12 @@ public:
                 continue;
             sort(supplier.begin(),supplier.end());
             li temp=0;
-            int i=0;
+            auto curr=packages.begin();
             for(auto& box:supplier){
-                int idx=upper_bound(packages.begin(),packages.end(),box)-packages.begin();
-                temp+=1L*box*(idx-i);
-                i=idx;
-                if(temp>ans)
+                auto next=upper_bound(packages.begin(),packages.end(),box);
+                temp+=1L*box*(next-curr);
+                curr=next;
+                if(curr==packages.end() || temp>ans)
                     break;
             }
             ans=min(ans,temp);
