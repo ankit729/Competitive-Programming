@@ -44,25 +44,25 @@
 const int MOD=1e9+7;
 class Solution {
 public:
-    int minWastedSpace(vector<int>& p, vector<vector<int>>& b) {
-        int n=p.size();
+    int minWastedSpace(vector<int>& packages, vector<vector<int>>& boxes) {
+        int n=packages.size();
         li ans=LONG_MAX;
-        sort(p.begin(),p.end());
-        for(auto& v:b){
-            if(*max_element(v.begin(),v.end())<p.back())
+        sort(packages.begin(),packages.end());
+        for(auto& supplier:boxes){
+            if(*max_element(supplier.begin(),supplier.end())<packages.back())
                 continue;
-            sort(v.begin(),v.end());
+            sort(supplier.begin(),supplier.end());
             li temp=0;
             int i=0;
-            for(auto& x:v){
-                int idx=upper_bound(p.begin(),p.end(),x)-p.begin();
-                temp+=1L*x*(idx-i);
+            for(auto& box:supplier){
+                int idx=upper_bound(packages.begin(),packages.end(),box)-packages.begin();
+                temp+=1L*box*(idx-i);
                 i=idx;
                 if(temp>ans)
                     break;
             }
             ans=min(ans,temp);
         }
-        return ans==LONG_MAX?-1:(ans-accumulate(p.begin(),p.end(),0L))%MOD;
+        return ans==LONG_MAX?-1:(ans-accumulate(packages.begin(),packages.end(),0L))%MOD;
     }
 };
