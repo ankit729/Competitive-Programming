@@ -53,10 +53,10 @@ public:
                 continue;
             sort(v.begin(),v.end());
             li temp=0;
-            for(int i=0,i1=0;i<n;){
-                int idx=upper_bound(p.begin(),p.end(),v[i1])-p.begin();
-                temp+=1L*v[i1]*(idx-i);
-                i1++;
+            int i=0;
+            for(auto& x:v){
+                int idx=upper_bound(p.begin(),p.end(),x)-p.begin();
+                temp+=1L*x*(idx-i);
                 i=idx;
                 if(temp>ans)
                     break;
