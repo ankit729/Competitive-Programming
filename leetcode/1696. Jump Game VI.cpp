@@ -36,7 +36,8 @@ public:
         for(int i=nums.size()-1;i>=0;--i){
             if(!dq.empty() && dq.front()>i+k)
                 dq.pop_front();
-            nums[i]+=dq.empty()?0:nums[dq.front()];
+            if(!dq.empty())
+                nums[i]+=nums[dq.front()];
             while(!dq.empty() && nums[i]>=nums[dq.back()])
                 dq.pop_back();
             dq.push_back(i);
