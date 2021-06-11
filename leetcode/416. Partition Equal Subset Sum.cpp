@@ -25,7 +25,7 @@ public:
         const int sum=accumulate(nums.begin(),nums.end(),0);
         if(sum&1)
             return false;
-        bitset<20001> possible; //20001=maxPossibleSum
+        bitset<10001> possible; //20001=maxPossibleSum
         possible[0]=1;
         for(int x:nums)
             possible|=(possible<<x);
