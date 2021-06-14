@@ -52,31 +52,37 @@ public:
             mp[arr[i]].push_back(i);
         bool visited[n];
         memset(visited,false,sizeof(visited));
-        visited[0]=true;
-        vector<int> st[2];bool flag=false;
-        st[flag].push_back(0);
+        visited[0]=visited[n-1]=true;
+        vector<int> st[3];int front=0,back=1,temp=2;
+        st[front].push_back(0);
+        st[back].push_back(n-1);
         int ans=0;
-        while(!st[flag].empty()){
-            for(auto& x:st[flag]){
-                if(x>0 && !visited[x-1])
-                    visited[x-1]=true,st[!flag].push_back(x-1);
-                if(x+1==n-1)
+        while(!st[front].empty()){
+            if(st[front].size()>st[back].size())
+                swap(front,back);
+            for(auto& x:st[front]){
+                if(find(st[back].begin(),st[back].end(),x-1)!=st[back].end())
                     return ans+1;
-                if(!visited[x+1])
-                    visited[x+1]=true,st[!flag].push_back(x+1);
+                if(x>0 && !visited[x-1])
+                    visited[x-1]=true,st[temp].push_back(x-1);
+                if(find(st[back].begin(),st[back].end(),x+1)!=st[back].end())
+                    return ans+1;
+                if(x+1<n && !visited[x+1])
+                    visited[x+1]=true,st[temp].push_back(x+1);
                 for(auto& y:mp[arr[x]]){
-                    if(y==n-1)
+                    if(find(st[back].begin(),st[back].end(),y)!=st[back].end())
                         return ans+1;
+                    if(!visited[y] && ((y>0 && arr[y-1]!=arr[y]) || arr[y]!=arr[y+1]))
+                        st[temp].push_back(y);
                     if(!visited[y])
                         visited[y]=true;
-                    if((y>0 && arr[y-1]!=arr[y]) || arr[y]!=arr[y+1])
-                        st[!flag].push_back(y);
+                    
                 }
                 mp.erase(arr[x]);
             }
             ans++;
-            st[flag].clear();
-            flag=!flag;
+            st[front].clear();
+            swap(front,temp);
         }
         return n-1;
     }
