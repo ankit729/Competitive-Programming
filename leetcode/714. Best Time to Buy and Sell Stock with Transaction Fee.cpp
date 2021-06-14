@@ -31,15 +31,11 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices, int fee) {
-        int n=prices.size(),ans=0,buy=prices[0];
-        for(int i=1;i<n;++i){
-            if(prices[i]<buy)
-                buy=prices[i];
-            else if(prices[i]>buy+fee){
-                ans+=prices[i]-fee-buy;
-                buy=prices[i]-fee;
-            }
+        int T[2]={0,INT_MIN};
+        for(auto& x:prices){
+            T[0]=max(T[0],T[1]+x);
+            T[1]=max(T[1],T[0]-x-fee);
         }
-        return ans;
+        return T[0];
     }
 };
