@@ -5,8 +5,7 @@
 // LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
 // int get(int key) Return the value of the key if the key exists, otherwise return -1.
 // void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
-// Follow up:
-// Could you do get and put in O(1) time complexity?
+// The functions get and put must each run in O(1) average time complexity.
 
  
 
@@ -34,9 +33,9 @@
 // Constraints:
 
 // 1 <= capacity <= 3000
-// 0 <= key <= 3000
-// 0 <= value <= 10^4
-// At most 3 * 10^4 calls will be made to get and put.
+// 0 <= key <= 10^4
+// 0 <= value <= 10^5
+// At most 2 * 10^5 calls will be made to get and put.
 
 class LRUCache {
     typedef list<pair<int,int>> LI;
@@ -54,7 +53,7 @@ public:
         if(it==cache.end())
             return -1;
         touch(it);
-        return used.front().second;
+        return it->second->second;
     }
     
     void put(int key, int value) {
@@ -65,12 +64,12 @@ public:
                 used.pop_back();
             }
             used.push_front({key,value});
+            cache[key]=used.begin();
         }
         else{
             touch(it);
             used.front().second=value;
         }
-        cache[key]=used.begin();
     }
 private:
     void touch(MPLI::iterator it) {
