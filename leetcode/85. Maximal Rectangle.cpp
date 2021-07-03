@@ -1,53 +1,70 @@
-// Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+// Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
 
-// Example:
+ 
 
-// Input:
-// [
-//   ["1","0","1","0","0"],
-//   ["1","0","1","1","1"],
-//   ["1","1","1","1","1"],
-//   ["1","0","0","1","0"]
-// ]
+// Example 1:
+
+
+// Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
 // Output: 6
+// Explanation: The maximal rectangle is shown in the above picture.
+// Example 2:
+
+// Input: matrix = []
+// Output: 0
+// Example 3:
+
+// Input: matrix = [["0"]]
+// Output: 0
+// Example 4:
+
+// Input: matrix = [["1"]]
+// Output: 1
+// Example 5:
+
+// Input: matrix = [["0","0"]]
+// Output: 0
+ 
+
+// Constraints:
+
+// rows == matrix.length
+// cols == matrix[i].length
+// 0 <= row, cols <= 200
+// matrix[i][j] is '0' or '1'.
 
 class Solution {
 public:
-    int maximalRectangle(vector<vector<char>>& matrix) {
-        int r=matrix.size(),c=(!r)?0:matrix[0].size();
-        if(r==0 || c==0)
+    int maximalRectangle(vector<vector<char>>& mat) {
+        int R=mat.size(),C=R>0?mat[0].size():0,ans=0;
+        if(C==0)
             return 0;
-        int n=c,ans=0;
-        int dp[n];
-        memset(dp,0,sizeof(dp));
-        for(int i=0;i<r;++i){
-            for(int j=0;j<c;++j)
-                dp[j]=(matrix[i][j]-'0')?dp[j]+1:0;
-            ans=max(ans,largestRectangleArea(dp,n));
+        int dp[C];
+        fill(dp,dp+C,0);
+        for(int r=0;r<R;++r){
+            for(int c=0;c<C;++c)
+                dp[c]=mat[r][c]-'0'?dp[c]+1:0;
+            ans=max(ans,largestRectangleArea(dp,C));
         }
         return ans;
     }
 private:
     int largestRectangleArea(int* dp, int n) {
         int ans=0;
-        stack<int> stack;
+        stack<int> stk;
         int i=0;
         while(i<n){
-            if(stack.empty() || dp[i]>dp[stack.top()]){
-                stack.push(i++);
-                continue;
+            while(!stk.empty() && dp[i]<=dp[stk.top()]){
+                int curr=dp[stk.top()];
+                stk.pop();
+                ans=max(ans,curr*(stk.empty()?i:i-stk.top()-1));
             }
-            while(!stack.empty() && dp[i]<dp[stack.top()]){
-                int curr=dp[stack.top()];
-                stack.pop();
-                ans=max(ans,curr*(stack.empty()?i:i-stack.top()-1));
-            }
-            stack.push(i++);
+            stk.push(i++);
         }
-        while(!stack.empty()){
-            int curr=dp[stack.top()];
-            stack.pop();
-            ans=max(ans,curr*(stack.empty()?i:i-stack.top()-1));
+        while(!stk.empty()){
+            int curr=dp[stk.top()];
+            stk.pop();
+            ans=max(ans,curr*(stk.empty()?i:i-stk.top()-1));
         }
         return ans;
     }
