@@ -4,10 +4,10 @@ ll gcdExtended(ll a, ll b, ll& x, ll& y) {
 		return b;
 	}
 	ll x1,y1;
-	ll gcd=gcdExtended(b%a,a,x1,y1);
+	ll g=gcdExtended(b%a,a,x1,y1);
 	x=y1-(b/a)*x1;
 	y=x1;
-	return gcd;
+	return g;
 }
 ll modInverse(ll b, ll MOD) {
 	ll x,y;
